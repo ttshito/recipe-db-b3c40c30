@@ -1,0 +1,1346 @@
+[
+ {
+  "name": "ご飯",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 1
+ },
+ {
+  "name": "冷凍うどん",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 1
+ },
+ {
+  "name": "乾麺うどん",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 3
+ },
+ {
+  "name": "パスタ",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 1
+ },
+ {
+  "name": "そうめん",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 2
+ },
+ {
+  "name": "焼きそば麺",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 2
+ },
+ {
+  "name": "卵",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "豚バラ",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "豚こま",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "豚ロース",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "鶏もも",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "鶏むね",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "牛ロース",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "挽き肉",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "豚ひき",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 2
+ },
+ {
+  "name": "牛ひき",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 2
+ },
+ {
+  "name": "鶏ひき",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 2
+ },
+ {
+  "name": "合い挽き",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 2
+ },
+ {
+  "name": "ウインナー",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 2
+ },
+ {
+  "name": "ベーコン",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 1
+ },
+ {
+  "name": "ハム",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 2
+ },
+ {
+  "name": "生ハム",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 2
+ },
+ {
+  "name": "かまぼこ",
+  "type1": "ingredient",
+  "type2": "protein_f",
+  "rarity": 2
+ },
+ {
+  "name": "カニカマ",
+  "type1": "ingredient",
+  "type2": "protein_f",
+  "rarity": 2
+ },
+ {
+  "name": "豆腐",
+  "type1": "ingredient",
+  "type2": "protein_s",
+  "rarity": 1
+ },
+ {
+  "name": "絹豆腐",
+  "type1": "ingredient",
+  "type2": "protein_s",
+  "rarity": 2
+ },
+ {
+  "name": "木綿豆腐",
+  "type1": "ingredient",
+  "type2": "protein_s",
+  "rarity": 2
+ },
+ {
+  "name": "油揚げ",
+  "type1": "ingredient",
+  "type2": "protein_s",
+  "rarity": 2
+ },
+ {
+  "name": "長ネギ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "長ネギ青",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "玉ねぎ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "にんじん",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "キャベツ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "白菜",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "トマト",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "アボカド",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "じゃがいも",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "山芋",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "大根",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "ピーマン",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "ニラ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "もやし",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "カットレモン",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "小松菜",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "ワカメ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 1
+ },
+ {
+  "name": "プチトマト",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "ブラックオリーブ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "チンゲン菜",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "ゴボウ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "椎茸",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "舞茸",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "マッシュルーム",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "めんたいこ",
+  "type1": "ingredient",
+  "type2": "pickles",
+  "rarity": 2
+ },
+ {
+  "name": "納豆",
+  "type1": "ingredient",
+  "type2": "pickles",
+  "rarity": 2
+ },
+ {
+  "name": "キムチ",
+  "type1": "ingredient",
+  "type2": "pickles",
+  "rarity": 2
+ },
+ {
+  "name": "サッポロ一番味噌ラーメン",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ピザチーズ",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "クリームチーズ",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "牛乳",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "豆乳",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "トマトジュース",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "炭酸水",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "カレールー",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ハヤシライスのもと",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ホールトマト缶",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "カットトマト缶",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "鯖の水煮缶",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ツナ缶",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "冷凍牡蠣",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "シーフードミックス",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "冷凍アサリ",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "鯛の切り身",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "たくあん",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "コーン",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "餃子の皮",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ワンタンの皮",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "生姜",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "にんにく",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "バター",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "小ねぎ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "紅生姜",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "レモン汁",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "片栗粉",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "薄力粉",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "小麦粉",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "醤油",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "オイスターソース",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "酢",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "穀物酢",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "米酢",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "酒",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "白だし",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "塩麹",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "味噌",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "ほんだし",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "みりん",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "ラード",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "サラダ油",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "ごま油",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "オリーブオイル",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "米油",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "鰹節",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "コンソメ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "鶏ガラスープ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "創味シャンタン",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "中華味",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "味の素",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "ハイミー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ポン酢",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "マヨネーズ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "ケチャップ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "中濃ソース",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ウスターソース",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "コチュジャン",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "豆板醤",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "甜麺醤",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "ウェイパー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ガーリックパウダー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ホワイトペッパー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "黒胡椒",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "粉胡椒",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "塩コショウ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "砂糖",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "塩",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "アジシオ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "塩昆布",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "いりごま",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "すりごま",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "青のり",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "海苔",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "天かす",
+  "type1": "seasoning",
+  "type2": "topping",
+  "rarity": 3
+ },
+ {
+  "name": "粉チーズ",
+  "type1": "seasoning",
+  "type2": "topping",
+  "rarity": 1
+ },
+ {
+  "name": "カレー粉",
+  "type1": "seasoning",
+  "type2": "harb",
+  "rarity": 1
+ },
+ {
+  "name": "クミン",
+  "type1": "seasoning",
+  "type2": "harb",
+  "rarity": 3
+ },
+ {
+  "name": "一味唐辛子",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "七味唐辛子",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "輪切り唐辛子",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "鷹の爪",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "乾燥パセリ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ラー油",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 1
+ },
+ {
+  "name": "和からし",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "わさび",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "タバスコ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "山椒",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "大葉",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "練りごま",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ハチミツ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "焼き肉のたれ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "これうまつゆ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "白ワイン",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "赤ワイン",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "アンチョビ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "チリパウダー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ナンプラー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "中華麺",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 3
+ },
+ {
+  "name": "生うどん",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 3
+ },
+ {
+  "name": "讃岐うどん",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 3
+ },
+ {
+  "name": "フォー",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 3
+ },
+ {
+  "name": "春雨",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 2
+ },
+ {
+  "name": "米",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 3
+ },
+ {
+  "name": "パン",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 3
+ },
+ {
+  "name": "バゲット",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 3
+ },
+ {
+  "name": "切り餅",
+  "type1": "ingredient",
+  "type2": "carb",
+  "rarity": 2
+ },
+ {
+  "name": "豚肉",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 3
+ },
+ {
+  "name": "鶏肉",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 3
+ },
+ {
+  "name": "牛こま",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 3
+ },
+ {
+  "name": "豚レバー",
+  "type1": "ingredient",
+  "type2": "protein",
+  "rarity": 3
+ },
+ {
+  "name": "ちくわ",
+  "type1": "ingredient",
+  "type2": "protein_f",
+  "rarity": 3
+ },
+ {
+  "name": "しめじ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "エリンギ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "ひらたけ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "キクラゲ",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "レタス",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "きゅうり",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 2
+ },
+ {
+  "name": "水菜",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "豆苗",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "ブロッコリー",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "ナス",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "春菊",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "ほうれん草",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "大根の葉",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "タケノコの水煮",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "カット野菜",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "レモン",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "ライム",
+  "type1": "ingredient",
+  "type2": "veggies",
+  "rarity": 3
+ },
+ {
+  "name": "梅干し",
+  "type1": "ingredient",
+  "type2": "pickles",
+  "rarity": 3
+ },
+ {
+  "name": "福神漬け",
+  "type1": "ingredient",
+  "type2": "pickles",
+  "rarity": 3
+ },
+ {
+  "name": "こんにゃく",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "白滝",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "生クリーム",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "野菜ジュース",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ベビースターラーメン",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "お茶漬け海苔",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "たらこ茶づけ",
+  "type1": "ingredient",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "柚子胡椒",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "マジスコ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "昆布だし",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ホットソース",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "五香粉",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ダシダ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ナツメグ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "めんつゆ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "ソース",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "粒マスタード",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "焙煎ごま香味油",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "花椒",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "花椒塩",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ビール",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ピンクペッパー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ペコリーノ・ロマーノ",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "食べるラー油",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "パプリカパウダー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "インスタントコーヒー",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "昆布茶",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ターメリック",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ごま塩",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "おろしにんにく",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "牛脂",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 2
+ },
+ {
+  "name": "パン粉",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "ピーナツバター",
+  "type1": "seasoning",
+  "type2": "",
+  "rarity": 3
+ },
+ {
+  "name": "焦がしネギ",
+  "type1": "seasoning",
+  "type2": "topping",
+  "rarity": 3
+ },
+ {
+  "name": "バジル",
+  "type1": "seasoning",
+  "type2": "harb",
+  "rarity": 3
+ },
+ {
+  "name": "オレガノ",
+  "type1": "seasoning",
+  "type2": "harb",
+  "rarity": 3
+ },
+ {
+  "name": "パクチー",
+  "type1": "seasoning",
+  "type2": "harb",
+  "rarity": 3
+ }
+]
