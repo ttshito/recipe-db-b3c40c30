@@ -313,6 +313,7 @@ function card(res) {
       ${status}
       ${r.rows.length ? `<div class="ings">${ingChips(res)}${seasCount ? `<span class="ing">＋調味料 ${seasCount}品</span>` : ''}</div>
       <details><summary>材料と分量をすべて見る</summary>${fullTable(res)}</details>` : '<div class="meta">材料データなし（動画でご確認ください）</div>'}
+      <a class="yt" href="${esc(r.url)}" target="_blank" rel="noopener">▶ YouTubeで作り方を見る</a>
     </div>
   </article>`;
 }

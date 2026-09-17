@@ -201,6 +201,18 @@ button { cursor: pointer; }
   background: var(--text); color: var(--bg); padding: 8px 16px; border-radius: 8px; font-size: 14px;
 }
 
+.yt {
+  display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 600;
+  color: var(--accent); text-decoration: none; border: 1px solid var(--accent); border-radius: 8px; padding: 3px 10px;
+}
+.yt:hover { background: var(--accent-soft); }
+
+.notice {
+  max-width: 1400px; margin: 0 auto; padding: 16px 20px 40px;
+  font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);
+}
+.notice p { margin: 4px 0; }
+
 /* ---------- mobile ---------- */
 @media (max-width: 820px) {
   .topbar { padding: 8px 16px; }
@@ -210,6 +222,7 @@ button { cursor: pointer; }
   .card { grid-template-columns: 112px minmax(0, 1fr); gap: 10px; }
   .thumb img { width: 112px; }
   .controls input[type="search"] { min-width: 0; width: 100%; }
+  .notice { padding: 16px; }
   .seg button { padding: 4px 8px; }
   .card h2 { font-size: 14px; }
 }
