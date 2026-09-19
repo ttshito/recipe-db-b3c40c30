@@ -40,7 +40,7 @@ const state = {
   mode: 'make',        // 'make' = Case 3, 'search' = Case 2
   sel: new Set(),
   syn: true,
-  ignoreSeas: false,
+  ignoreSeas: true,   // 調味料は家にある前提（Case 3 の初期値）
   maxMissing: 1,
   sort: 'missing',
   q: '',
@@ -284,14 +284,18 @@ function fullTable(res) {
     if (state.sel.has(x.base)) st = '✓ ある';
     else if (have.has(k)) st = '✓ 同義で代用';
     else if (missKeys && missKeys.has(k)) st = '✗ 不足';
-    else if (state.mode === 'make' && x.item.isSeas && state.ignoreSeas) st = '調味料';
     const alias = x.name !== x.base ? ` <span class="badge">→${esc(x.base)}</span>` : '';
     return `<tr><td>${esc(x.name)}${alias}</td><td>${esc(x.amount || '—')}</td><td>${st}</td></tr>`;
   };
+  const sub = (label, rows) => rows.length
+    ? `<tr class="sub"><td colspan="3">${label}</td></tr>${rows.map(row).join('')}` : '';
   const req = r.rows.filter(x => !x.option);
+  const ing = req.filter(x => !x.item.isSeas);
+  const seas = req.filter(x => x.item.isSeas);
   const opt = r.rows.filter(x => x.option);
-  return `<table class="full">${req.map(row).join('')}
-    ${opt.length ? `<tr class="sub"><td colspan="3">仕上げ・味変（任意）</td></tr>${opt.map(row).join('')}` : ''}</table>`;
+  return `<table class="full">${ing.map(row).join('')}
+    ${sub('調味料', seas)}
+    ${sub('仕上げ・味変（任意）', opt)}</table>`;
 }
 
 function card(res) {
@@ -358,7 +362,7 @@ function renderResults() {
   cards.innerHTML = res.length
     ? res.map(card).join('')
     : `<div class="empty">不足${state.maxMissing}つ以内で作れるレシピはありません。<br>
-        「不足を許す」を増やすか、調味料を選ぶ／「調味料は不足に数えない」をONにしてみてください。</div>`;
+        「不足を許す」を増やすか、具材を追加してみてください。</div>`;
 }
 
 // ============================================================
@@ -372,7 +376,7 @@ function toParams() {
   p.set('syn', state.syn ? '1' : '0');
   if (state.mode === 'make') {
     p.set('max', String(state.maxMissing));
-    if (state.ignoreSeas) p.set('seas', '0');
+    if (!state.ignoreSeas) p.set('seas', '1');
   }
   p.set('sort', state.sort);
   if (state.q) p.set('q', state.q);
@@ -384,7 +388,7 @@ function fromParams(p) {
   if (p.has('i')) state.sel = new Set(p.get('i').split(',').filter(n => db.items.has(n)));
   if (p.has('syn')) state.syn = p.get('syn') !== '0';
   if (p.has('max')) state.maxMissing = Math.min(3, Math.max(0, parseInt(p.get('max'), 10) || 0));
-  state.ignoreSeas = p.get('seas') === '0';
+  state.ignoreSeas = p.get('seas') !== '1';
   if (p.has('sort')) state.sort = p.get('sort');
   state.q = p.get('q') ?? '';
 }
