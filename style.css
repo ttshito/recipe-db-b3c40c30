@@ -162,6 +162,11 @@ button { cursor: pointer; }
   border: 0; background: none; width: 20px; height: 20px; border-radius: 50%; line-height: 1; color: var(--muted);
 }
 .selected .tag button:hover { background: rgb(0 0 0 / .08); }
+.selected .tag { padding-left: 4px; }
+.selected .tag .star { width: 22px; font-size: 13px; color: var(--muted); }
+.selected .tag.must { background: var(--accent); color: #fff; }
+.selected .tag.must .star, .selected .tag.must button { color: #fff; }
+.selected .tag.must button:hover, .selected .tag.must .star:hover { background: rgb(255 255 255 / .2); }
 
 .summary { margin: 14px 2px 10px; font-size: 14px; color: var(--muted); }
 .summary strong { color: var(--text); font-size: 18px; }

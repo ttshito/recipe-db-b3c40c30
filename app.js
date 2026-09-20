@@ -39,6 +39,7 @@ const db = {
 const state = {
   mode: 'make',        // 'make' = Case 3, 'search' = Case 2
   sel: new Set(),
+  must: new Set(),    // そのうち「必ず使う」具材（Case 3 の AND 条件）
   syn: true,
   synOff: new Set(),   // 個別にOFFにした同義グループのid
   ignoreSeas: true,   // 調味料は家にある前提（Case 3 の初期値）
@@ -145,9 +146,11 @@ function makeResults() {
   for (const r of db.recipes) {
     if (!titleHit(r)) continue;
     const keys = recipeKeys(r);
-    // 「使いたい具材」を1つも使わないレシピは出さない（調味料だけの一致は除外）
-    const usesWanted = [...state.sel].some(n => !db.items.get(n).isSeas && keys.has(keyOf(n)));
-    if (!usesWanted) continue;
+    // ★を付けた具材は全部使うレシピだけ。★が無ければ、選んだ食材を1つ以上使うレシピ
+    const ok = state.must.size
+      ? [...state.must].every(n => keys.has(keyOf(n)))
+      : [...state.sel].some(n => !db.items.get(n).isSeas && keys.has(keyOf(n)));
+    if (!ok) continue;
 
     const missing = [];
     const missKeys = new Set();
@@ -219,9 +222,13 @@ function renderControls() {
 function renderSelected() {
   $('#sel-count').textContent = state.sel.size ? `${state.sel.size}品` : '';
   if (!state.sel.size) { $('#selected').innerHTML = ''; return; }
-  $('#selected').innerHTML = [...state.sel].map(n =>
-    `<span class="tag">${esc(n)}<button data-rm="${esc(n)}" aria-label="${esc(n)}を外す">×</button></span>`
-  ).join('');
+  const star = state.mode === 'make';
+  $('#selected').innerHTML = [...state.sel].map(n => {
+    const on = state.must.has(n);
+    return `<span class="tag${on ? ' must' : ''}">
+      ${star ? `<button class="star" data-must="${esc(n)}" title="${esc(n)}を必ず使うレシピだけに絞る" aria-pressed="${on}">${on ? '★' : '☆'}</button>` : ''}
+      ${esc(n)}<button data-rm="${esc(n)}" aria-label="${esc(n)}を外す">×</button></span>`;
+  }).join('');
 }
 
 function renderPanel(counts) {
@@ -297,7 +304,7 @@ function ingChips(res) {
   return main.map(x => {
     const k = keyOf(x.base);
     let cls = '';
-    if (state.mode === 'make') cls = missKeys.has(k) ? 'miss' : (have.has(k) ? 'have' : '');
+    if (state.mode === 'make') cls = missKeys.has(k) ? 'miss' : ([...state.must].some(n => keyOf(n) === k) ? 'hit' : (have.has(k) ? 'have' : ''));
     else cls = have.has(k) ? 'hit' : '';
     return `<span class="ing ${cls}">${esc(x.name)}${x.amount ? `<span class="a">${esc(x.amount)}</span>` : ''}</span>`;
   }).join('');
@@ -372,16 +379,19 @@ function renderResults() {
 
   renderPanel(null);
   const wanted = [...state.sel].filter(n => !db.items.get(n).isSeas);
-  if (!wanted.length) {
+  if (!wanted.length && !state.must.size) {
     summary.innerHTML = '';
-    cards.innerHTML = `<div class="empty">左のパネルで、冷蔵庫にある食材を選んでください。<br>
-      調味料は「よく使う調味料を全部☑」でまとめて選べます。</div>`;
+    cards.innerHTML = `<div class="empty">上の具材パネルで、冷蔵庫にある食材を選んでください。<br>
+      調味料は「よく使う調味料を全部☑」でまとめて選べます。<br>
+      選んだあと、タグの☆を押すと「その具材を必ず使う」レシピだけに絞れます。</div>`;
     return;
   }
   const all = makeResults();
   const buckets = [0, 1, 2, 3].map(n => all.filter(x => x.missing.length === n).length);
   const res = all.filter(x => x.missing.length <= state.maxMissing);
-  summary.innerHTML = `
+  const mustNote = state.must.size
+    ? `<span class="bucket">★ ${[...state.must].map(esc).join(' AND ')} を使う</span>` : '';
+  summary.innerHTML = `${mustNote}
     <span class="bucket">作れる <strong>${buckets[0]}</strong> 件</span>
     <span class="bucket">不足1で ${buckets[1]} 件</span>
     <span class="bucket">不足2で ${buckets[2]} 件</span>
@@ -389,7 +399,7 @@ function renderResults() {
   cards.innerHTML = res.length
     ? res.map(card).join('')
     : `<div class="empty">不足${state.maxMissing}つ以内で作れるレシピはありません。<br>
-        「不足を許す」を増やすか、具材を追加してみてください。</div>`;
+        「不足を許す」を増やすか、${state.must.size ? '★を減らして' : '具材を追加して'}みてください。</div>`;
 }
 
 // ============================================================
@@ -400,6 +410,7 @@ function toParams() {
   const p = new URLSearchParams();
   p.set('m', state.mode);
   if (state.sel.size) p.set('i', [...state.sel].join(','));
+  if (state.must.size) p.set('use', [...state.must].join(','));
   p.set('syn', state.syn ? '1' : '0');
   if (state.synOff.size) p.set('synoff', [...state.synOff].join(','));
   if (ui.advOpen) p.set('adv', '1');
@@ -415,6 +426,7 @@ function toParams() {
 function fromParams(p) {
   if (p.has('m')) state.mode = p.get('m') === 'search' ? 'search' : 'make';
   if (p.has('i')) state.sel = new Set(p.get('i').split(',').filter(n => db.items.has(n)));
+  state.must = new Set((p.get('use') ?? '').split(',').filter(n => state.sel.has(n)));
   if (p.has('syn')) state.syn = p.get('syn') !== '0';
   state.synOff = new Set((p.get('synoff') ?? '').split(',').filter(id => db.groups.has(id)));
   ui.advOpen = p.get('adv') === '1';
@@ -461,7 +473,8 @@ function bind() {
   $('#categories').addEventListener('change', e => {
     const n = e.target.dataset.ing;
     if (!n) return;
-    e.target.checked ? state.sel.add(n) : state.sel.delete(n);
+    if (e.target.checked) state.sel.add(n);
+    else { state.sel.delete(n); state.must.delete(n); }
     render();
   });
   $('#adv').addEventListener('toggle', e => { ui.advOpen = e.target.open; save(); }, true);
@@ -486,9 +499,11 @@ function bind() {
 
   $('#selected').addEventListener('click', e => {
     const n = e.target.dataset.rm;
-    if (n) { state.sel.delete(n); render(); }
+    if (n) { state.sel.delete(n); state.must.delete(n); render(); return; }
+    const m = e.target.dataset.must;
+    if (m) { state.must.has(m) ? state.must.delete(m) : state.must.add(m); render(); }
   });
-  $('#clear').addEventListener('click', () => { state.sel.clear(); render(); });
+  $('#clear').addEventListener('click', () => { state.sel.clear(); state.must.clear(); render(); });
   $('#bulk-seas').addEventListener('click', () => {
     for (const it of db.items.values()) if (it.inMaster && it.isSeas && it.rarity === 1) state.sel.add(it.name);
     render();
