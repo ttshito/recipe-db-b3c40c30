@@ -180,11 +180,11 @@ button { cursor: pointer; }
 .summary strong { color: var(--text); font-size: 18px; }
 .summary .bucket { margin-right: 14px; white-space: nowrap; }
 .summary .bk {
-  border: 0; background: none; color: var(--muted); font: inherit; padding: 2px 0; margin-right: 14px;
-  border-bottom: 2px solid transparent;
+  border: 0; background: none; font: inherit; padding: 2px 0; margin-right: 14px;
+  color: var(--muted); opacity: .55;
 }
-.summary .bk.on { color: var(--text); border-bottom-color: var(--accent); }
-.summary .bk:hover { color: var(--text); }
+.summary .bk.on { color: var(--text); opacity: 1; }
+.summary .bk:hover { opacity: 1; }
 .empty {
   padding: 40px 20px; text-align: center; color: var(--muted);
   border: 1px dashed var(--border); border-radius: 12px;
