@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20260920-1816';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20260920-1827';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
@@ -50,7 +50,7 @@ const state = {
   q: '',
 };
 
-const ui = { level: {}, filter: '', advOpen: false, collapsed: { seas: true } };  // 調味料は最初は畳む
+const ui = { level: {}, filter: '', advOpen: false, collapsed: { seas: true }, seasTags: false };  // 調味料は最初は畳む
 
 async function load() {
   const get = p => fetch(p).then(r => {
@@ -225,12 +225,20 @@ function renderSelected() {
   $('#sel-count').textContent = state.sel.size ? `${state.sel.size}品` : '';
   if (!state.sel.size) { $('#selected').innerHTML = ''; return; }
   const star = state.mode === 'make';
-  $('#selected').innerHTML = [...state.sel].map(n => {
+  const tag = n => {
     const on = state.must.has(n);
     return `<span class="tag${on ? ' must' : ''}">
       ${star ? `<button class="star" data-must="${esc(n)}" title="${esc(n)}を必ず使うレシピだけに絞る" aria-pressed="${on}">${on ? '★' : '☆'}</button>` : ''}
       ${esc(n)}<button data-rm="${esc(n)}" aria-label="${esc(n)}を外す">×</button></span>`;
-  }).join('');
+  };
+  const sel = [...state.sel];
+  // 調味料のタグは数が多く画面を圧迫するので、既定ではまとめて1つにする
+  const seas = sel.filter(n => db.items.get(n).isSeas && !state.must.has(n));
+  const shown = sel.filter(n => !seas.includes(n));
+  $('#selected').innerHTML = shown.map(tag).join('')
+    + (seas.length ? (ui.seasTags
+      ? seas.map(tag).join('') + `<button class="tag-more" data-seastags="0">調味料をまとめる ▲</button>`
+      : `<button class="tag-more" data-seastags="1">調味料 ${seas.length}品 ▼</button>`) : '');
 }
 
 function renderPanel(counts) {
@@ -282,6 +290,10 @@ function renderPanel(counts) {
         more = `<button class="more" data-cat="${cat.id}" data-lv="1">▲ 閉じる</button>`;
       }
       if (cat.id in ui.collapsed) more += `<button class="more" data-close="${cat.id}">▲ 隠す</button>`;
+      if (cat.id === 'seas') {
+        more = `<div class="panel-buttons"><button id="bulk-seas" class="ghost small"
+          title="よく使う（rarity 1）調味料をまとめて選択します">よく使う調味料を全部☑</button></div>` + more;
+      }
     }
     const note = counts ? '数字=追加した場合の件数' : '数字=使用レシピ数';
     html.push(`<div class="cat"><h3>${cat.label}${cat.id === 'carb' ? `<span class="note">${note}</span>` : ''}</h3><div class="chips">${chips}</div>${more}</div>`);
@@ -515,10 +527,13 @@ function bind() {
     const n = e.target.dataset.rm;
     if (n) { state.sel.delete(n); state.must.delete(n); render(); return; }
     const m = e.target.dataset.must;
-    if (m) { state.must.has(m) ? state.must.delete(m) : state.must.add(m); render(); }
+    if (m) { state.must.has(m) ? state.must.delete(m) : state.must.add(m); render(); return; }
+    const t = e.target.closest('[data-seastags]');
+    if (t) { ui.seasTags = t.dataset.seastags === '1'; renderSelected(); }
   });
   $('#clear').addEventListener('click', () => { state.sel.clear(); state.must.clear(); render(); });
-  $('#bulk-seas').addEventListener('click', () => {
+  $('#categories').addEventListener('click', e => {
+    if (!e.target.closest('#bulk-seas')) return;
     for (const it of db.items.values()) if (it.inMaster && it.isSeas && it.rarity === 1) state.sel.add(it.name);
     ui.collapsed.seas = false;
     render();

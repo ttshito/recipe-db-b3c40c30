@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>レシピ検索ツール</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍳</text></svg>">
-<link rel="stylesheet" href="style.css?v=20260920-1816">
+<link rel="stylesheet" href="style.css?v=20260920-1827">
 </head>
 <body>
 <header class="topbar">
@@ -29,12 +29,9 @@
       <summary>具材を選ぶ <span id="sel-count" class="count"></span></summary>
       <div class="panel-tools">
         <input type="search" id="ing-filter" placeholder="具材名で絞り込み">
-        <div class="panel-buttons">
-          <button id="bulk-seas" class="ghost small" title="よく使う(rarity 1)調味料をまとめて選択">よく使う調味料を全部☑</button>
-          <button id="clear" class="ghost small">選択をクリア</button>
-        </div>
       </div>
       <div id="categories"></div>
+      <div class="panel-buttons panel-foot"><button id="clear" class="ghost small">選択をすべてクリア</button></div>
       <div id="adv"></div>
     </details>
   </aside>
@@ -57,6 +54,6 @@
 </footer>
 
 <div id="toast" class="toast" hidden></div>
-<script src="app.js?v=20260920-1816"></script>
+<script src="app.js?v=20260920-1827"></script>
 </body>
 </html>

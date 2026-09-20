@@ -94,6 +94,7 @@ button { cursor: pointer; }
   width: 100%; padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg);
 }
 .panel-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
+.panel-foot { margin-top: 16px; }
 
 .cat { margin-top: 14px; }
 .cat h3 {
@@ -164,6 +165,11 @@ button { cursor: pointer; }
 }
 .selected .tag button:hover { background: rgb(0 0 0 / .08); }
 .selected .tag { padding-left: 4px; }
+.tag-more {
+  border: 1px dashed var(--border); background: var(--bg); color: var(--muted);
+  border-radius: 999px; padding: 2px 10px; font-size: 13px;
+}
+.tag-more:hover { background: var(--surface-2); }
 .selected .tag .star { width: 22px; font-size: 13px; color: var(--muted); }
 .selected .tag.must { background: var(--accent); color: #fff; }
 .selected .tag.must .star, .selected .tag.must button { color: #fff; }
