@@ -1,5 +1,7 @@
 'use strict';
 
+const BUILD = '20260920-1816';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
 // ============================================================
@@ -56,7 +58,7 @@ async function load() {
     return r.json();
   });
   const [recipes, ingredients, synonyms] = await Promise.all([
-    get('data/recipes.json'), get('data/ingredients.json'), get('data/synonyms.json'),
+    get(`data/recipes.json?v=${BUILD}`), get(`data/ingredients.json?v=${BUILD}`), get(`data/synonyms.json?v=${BUILD}`),
   ]);
 
   const variants = synonyms.notationVariants;
@@ -541,6 +543,14 @@ function bind() {
     } catch {
       toast('コピーできませんでした。アドレスバーのURLを共有してください');
     }
+  });
+
+  $('#build').textContent = BUILD;
+  // Safari は強制リロードがしづらいので、日時付きURLで開き直してキャッシュを回避する
+  $('#refresh').addEventListener('click', () => {
+    const p = toParams();
+    p.set('cb', Date.now().toString(36));
+    location.replace(location.pathname + '?' + p.toString());
   });
 
   if (matchMedia('(max-width: 820px)').matches) $('#panel-details').open = state.sel.size === 0;
