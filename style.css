@@ -99,8 +99,9 @@ button { cursor: pointer; }
 .cat { margin-top: 14px; }
 .cat h3 {
   font-size: 12px; letter-spacing: .04em; color: var(--muted); margin: 0 0 6px;
-  display: flex; justify-content: space-between; align-items: baseline;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
 }
+.cat h3 .more { margin-top: 0; }
 .cat .note { font-weight: normal; font-size: 11px; }
 .chips { display: flex; flex-wrap: wrap; gap: 5px; }
 .chip {

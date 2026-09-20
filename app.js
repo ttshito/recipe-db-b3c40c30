@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20260920-1827';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20260920-1846';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
@@ -252,8 +252,8 @@ function renderPanel(counts) {
     // 畳んでいるカテゴリは見出しと開くボタンだけ（具材名で絞り込み中は中身を出す）
     if (ui.collapsed[cat.id] && !f) {
       const sel = all.filter(i => state.sel.has(i.name)).length;
-      html.push(`<div class="cat"><h3>${cat.label}</h3>
-        <button class="more" data-open="${cat.id}">▼ 表示する（${all.length}品${sel ? `・${sel}品を選択中` : ''}）</button></div>`);
+      html.push(`<div class="cat"><h3>${cat.label}
+        <button class="more" data-open="${cat.id}">▼ 表示する（${all.length}品${sel ? `・${sel}品を選択中` : ''}）</button></h3></div>`);
       continue;
     }
     const visible = all.filter(i =>
@@ -289,14 +289,16 @@ function renderPanel(counts) {
       } else if (maxLevel > 1) {
         more = `<button class="more" data-cat="${cat.id}" data-lv="1">▲ 閉じる</button>`;
       }
-      if (cat.id in ui.collapsed) more += `<button class="more" data-close="${cat.id}">▲ 隠す</button>`;
       if (cat.id === 'seas') {
         more = `<div class="panel-buttons"><button id="bulk-seas" class="ghost small"
           title="よく使う（rarity 1）調味料をまとめて選択します">よく使う調味料を全部☑</button></div>` + more;
       }
     }
     const note = counts ? '数字=追加した場合の件数' : '数字=使用レシピ数';
-    html.push(`<div class="cat"><h3>${cat.label}${cat.id === 'carb' ? `<span class="note">${note}</span>` : ''}</h3><div class="chips">${chips}</div>${more}</div>`);
+    const head = cat.id in ui.collapsed
+      ? `<button class="more" data-close="${cat.id}">▲ 隠す</button>`
+      : (cat.id === 'carb' ? `<span class="note">${note}</span>` : '');
+    html.push(`<div class="cat"><h3>${cat.label}${head}</h3><div class="chips">${chips}</div>${more}</div>`);
   }
   $('#categories').innerHTML = html.join('');
   renderAdv();
