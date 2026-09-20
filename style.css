@@ -179,6 +179,12 @@ button { cursor: pointer; }
 .summary { margin: 14px 2px 10px; font-size: 14px; color: var(--muted); }
 .summary strong { color: var(--text); font-size: 18px; }
 .summary .bucket { margin-right: 14px; white-space: nowrap; }
+.summary .bk {
+  border: 0; background: none; color: var(--muted); font: inherit; padding: 2px 0; margin-right: 14px;
+  border-bottom: 2px solid transparent;
+}
+.summary .bk.on { color: var(--text); border-bottom-color: var(--accent); }
+.summary .bk:hover { color: var(--text); }
 .empty {
   padding: 40px 20px; text-align: center; color: var(--muted);
   border: 1px dashed var(--border); border-radius: 12px;

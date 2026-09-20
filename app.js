@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20260920-1857';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20260920-1902';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
@@ -416,11 +416,13 @@ function renderResults() {
   const res = all.filter(x => x.missing.length <= state.maxMissing);
   const mustNote = state.must.size
     ? `<span class="bucket">★ ${[...state.must].map(esc).join(' AND ')} を使う</span>` : '';
+  // 内訳は押すと「不足を許す」を切り替える。表示に含まれている範囲を色で示す
+  const labels = ['作れる', '不足1で', '不足2で', '不足3で'];
+  const bar = buckets.map((n, i) =>
+    `<button class="bucket bk${i <= state.maxMissing ? ' on' : ''}" data-max="${i}"
+      title="${i === 0 ? '不足なしのレシピだけ表示' : `不足${i}つまで表示`}">${labels[i]} ${n} 件</button>`).join('');
   summary.innerHTML = `${mustNote}
-    <span class="bucket">作れる <strong>${buckets[0]}</strong> 件</span>
-    <span class="bucket">不足1で ${buckets[1]} 件</span>
-    <span class="bucket">不足2で ${buckets[2]} 件</span>
-    <span class="bucket">不足3で ${buckets[3]} 件</span>`;
+    <span class="bucket">表示中 <strong>${res.length}</strong> 件</span>${bar}`;
   cards.innerHTML = res.length
     ? res.map(card).join('')
     : `<div class="empty">不足${state.maxMissing}つ以内で作れるレシピはありません。<br>
@@ -525,6 +527,11 @@ function bind() {
     renderResults();
   });
   $('#ing-filter').addEventListener('input', e => { ui.filter = e.target.value; renderResults(); });
+
+  $('#summary').addEventListener('click', e => {
+    const b = e.target.closest('[data-max]');
+    if (b) { state.maxMissing = Number(b.dataset.max); render(); }
+  });
 
   $('#selected').addEventListener('click', e => {
     const n = e.target.dataset.rm;
