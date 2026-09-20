@@ -225,6 +225,7 @@ button { cursor: pointer; }
 .full td:nth-child(2) { color: var(--muted); white-space: nowrap; }
 .full td:last-child { text-align: right; white-space: nowrap; font-size: 12px; }
 .full tr.sub td { color: var(--muted); font-size: 12px; padding-top: 8px; border-bottom: 0; }
+.full tr.miss td { color: var(--warn); font-weight: 600; }
 .badge { font-size: 11px; padding: 0 6px; border-radius: 4px; background: var(--surface-2); color: var(--muted); }
 
 .toast {

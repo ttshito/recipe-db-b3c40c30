@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20260920-1930';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20260921-0002';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
@@ -367,9 +367,10 @@ function fullTable(res) {
     let st = '';
     if (state.sel.has(x.base)) st = '✓ ある';
     else if (have.has(k)) st = '✓ 同義で代用';
-    else if (missKeys && missKeys.has(k)) st = '✗ 不足';
+    let cls = '';
+    if (missKeys && missKeys.has(k) && !st) { st = '✗ 不足'; cls = ' class="miss"'; }
     const alias = x.name !== x.base ? ` <span class="badge">→${esc(x.base)}</span>` : '';
-    return `<tr><td>${esc(x.name)}${alias}</td><td>${esc(x.amount || '—')}</td><td>${st}</td></tr>`;
+    return `<tr${cls}><td>${esc(x.name)}${alias}</td><td>${esc(x.amount || '—')}</td><td>${st}</td></tr>`;
   };
   const sub = (label, rows) => rows.length
     ? `<tr class="sub"><td colspan="3">${label}</td></tr>${rows.map(row).join('')}` : '';
