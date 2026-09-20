@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20260920-1851';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20260920-1857';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
@@ -218,7 +218,8 @@ function renderControls() {
     ${makeCtl}
     <label>並び順
       <select id="sort">${sortOpts.map(([v, l]) => `<option value="${v}" ${state.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
-    </label>`;
+    </label>
+    ${state.sel.size ? `<button id="clear" class="ghost small">選択をクリア（${state.sel.size}品）</button>` : ''}`;
 }
 
 function renderSelected() {
@@ -533,7 +534,6 @@ function bind() {
     const t = e.target.closest('[data-seastags]');
     if (t) { ui.seasTags = t.dataset.seastags === '1'; renderSelected(); }
   });
-  $('#clear').addEventListener('click', () => { state.sel.clear(); state.must.clear(); render(); });
   $('#categories').addEventListener('click', e => {
     if (!e.target.closest('#bulk-seas')) return;
     for (const it of db.items.values()) if (it.inMaster && it.isSeas && it.rarity === 1) state.sel.add(it.name);
@@ -543,6 +543,7 @@ function bind() {
   });
 
   $('#controls').addEventListener('click', e => {
+    if (e.target.id === 'clear') { state.sel.clear(); state.must.clear(); render(); return; }
     const b = e.target.closest('#max button');
     if (b) { state.maxMissing = Number(b.dataset.n); render(); }
   });

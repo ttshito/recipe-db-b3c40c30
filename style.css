@@ -94,7 +94,6 @@ button { cursor: pointer; }
   width: 100%; padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg);
 }
 .panel-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
-.panel-foot { margin-top: 16px; }
 
 .cat { margin-top: 14px; }
 .cat h3 {
@@ -145,6 +144,7 @@ button { cursor: pointer; }
   padding: 10px 14px;
 }
 .controls label, .controls .ctl { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; }
+.controls #clear { margin-left: auto; }
 .controls input[type="search"] {
   padding: 5px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); min-width: 200px;
 }
