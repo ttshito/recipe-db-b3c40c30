@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20260920-1846';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20260920-1851';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
@@ -136,7 +136,7 @@ function searchResults() {
   }
   const cmp = {
     count: (a, b) => a.r.rows.length - b.r.rows.length,
-    new: (a, b) => b.r.published.localeCompare(a.r.published),
+    countDesc: (a, b) => b.r.rows.length - a.r.rows.length,
   }[state.sort];
   return out.sort(cmp);
 }
@@ -169,7 +169,7 @@ function makeResults() {
   const cmp = {
     missing: (a, b) => a.missing.length - b.missing.length || a.r.rows.length - b.r.rows.length,
     count: (a, b) => a.r.rows.length - b.r.rows.length || a.missing.length - b.missing.length,
-    new: (a, b) => a.missing.length - b.missing.length || b.r.published.localeCompare(a.r.published),
+    countDesc: (a, b) => b.r.rows.length - a.r.rows.length || a.missing.length - b.missing.length,
   }[state.sort];
   return out.sort(cmp);
 }
@@ -193,8 +193,8 @@ function render() {
 
 function renderControls() {
   const sortOpts = state.mode === 'make'
-    ? [['missing', '不足が少ない順'], ['count', '具材数が少ない順'], ['new', '新しい順']]
-    : [['count', '具材数が少ない順'], ['new', '新しい順']];
+    ? [['missing', '不足が少ない順'], ['count', '具材数が少ない順'], ['countDesc', '具材数が多い順']]
+    : [['count', '具材数が少ない順'], ['countDesc', '具材数が多い順']];
   if (!sortOpts.some(([v]) => v === state.sort)) state.sort = sortOpts[0][0];
 
   const makeCtl = state.mode === 'make' ? `
