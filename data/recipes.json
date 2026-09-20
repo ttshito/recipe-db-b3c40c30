@@ -150,7 +150,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "サラダ油",
@@ -531,7 +531,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "鶏ガラスープ",
@@ -722,7 +722,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "天かす",
@@ -1031,7 +1031,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "七味唐辛子",
@@ -1240,7 +1240,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "一味唐辛子",
@@ -1295,7 +1295,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "豆腐",
@@ -1413,7 +1413,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "水",
@@ -1576,7 +1576,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    }
   ]
  },
@@ -1695,7 +1695,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "白菜",
@@ -1894,7 +1894,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "黒胡椒",
@@ -2103,7 +2103,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "いりごま",
@@ -2367,7 +2367,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "サラダ油",
@@ -2494,7 +2494,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "いりごま",
@@ -2666,7 +2666,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ニラ",
@@ -2838,7 +2838,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "酒",
@@ -3555,7 +3555,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "マヨネーズ",
@@ -3791,7 +3791,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "卵",
@@ -4445,7 +4445,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "生姜",
@@ -4698,7 +4698,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -4971,7 +4971,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "天かす",
@@ -5034,7 +5034,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "七味唐辛子",
@@ -5325,7 +5325,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "サラダ油",
@@ -5679,7 +5679,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ニラ",
@@ -6041,7 +6041,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -6579,7 +6579,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "塩",
@@ -6896,7 +6896,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -6960,7 +6960,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -7205,7 +7205,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -7350,7 +7350,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "七味唐辛子",
@@ -7486,7 +7486,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "卵黄",
@@ -7532,7 +7532,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "サラダ油",
@@ -8040,7 +8040,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "にんにく",
@@ -8639,7 +8639,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "キャベツ",
@@ -8820,7 +8820,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "豆板醤",
@@ -8947,7 +8947,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "水",
@@ -9664,7 +9664,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ごま油",
@@ -9746,7 +9746,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ごま油",
@@ -10553,7 +10553,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ご飯",
@@ -11315,7 +11315,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "砂糖",
@@ -11415,7 +11415,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "生姜",
@@ -11850,7 +11850,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "パン粉",
@@ -12050,7 +12050,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ご飯",
@@ -12622,7 +12622,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -12958,7 +12958,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -13076,7 +13076,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "いりごま",
@@ -13285,7 +13285,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "生姜",
@@ -13439,7 +13439,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ご飯",
@@ -13511,7 +13511,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "鷹の爪",
@@ -13828,7 +13828,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    }
   ]
  },
@@ -14155,7 +14155,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "塩",
@@ -14327,7 +14327,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "酢",
@@ -14445,7 +14445,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "和からし",
@@ -14572,7 +14572,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "海苔",
@@ -14753,7 +14753,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -14916,7 +14916,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "鷹の爪",
@@ -15632,7 +15632,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "豆腐",
@@ -15758,7 +15758,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "一味唐辛子",
@@ -15840,7 +15840,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "海苔",
@@ -15976,7 +15976,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "塩",
@@ -16521,7 +16521,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "焼き肉のたれ",
@@ -16775,7 +16775,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "鷹の爪",
@@ -16974,7 +16974,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -17510,7 +17510,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ホワイトペッパー",
@@ -17574,7 +17574,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "水",
@@ -17646,7 +17646,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -17919,7 +17919,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "いりごま",
@@ -18091,7 +18091,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "片栗粉",
@@ -18181,7 +18181,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -18489,7 +18489,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -18743,7 +18743,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "小ねぎ",
@@ -18752,7 +18752,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "卵",
@@ -19207,7 +19207,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "豆腐",
@@ -19289,7 +19289,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "生姜",
@@ -20024,7 +20024,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "鰹節",
@@ -20115,7 +20115,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "いりごま",
@@ -20206,7 +20206,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "いりごま",
@@ -20288,7 +20288,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "柚子胡椒",
@@ -20596,7 +20596,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "レモン",
@@ -20687,7 +20687,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "七味唐辛子",
@@ -21803,7 +21803,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -21849,7 +21849,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "味の素",
@@ -22311,7 +22311,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "これうまつゆ",
@@ -22411,7 +22411,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "水",
@@ -23137,7 +23137,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "かまぼこ",
@@ -23310,7 +23310,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "生姜",
@@ -23637,7 +23637,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "にんにく",
@@ -24090,7 +24090,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "そうめん",
@@ -24434,7 +24434,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -24697,7 +24697,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "バター",
@@ -24925,7 +24925,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "塩",
@@ -25007,7 +25007,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "水",
@@ -25098,7 +25098,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ダシダ",
@@ -25787,7 +25787,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "海苔",
@@ -25814,7 +25814,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ごま油",
@@ -26167,7 +26167,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "七味唐辛子",
@@ -26285,7 +26285,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "黒胡椒",
@@ -26755,7 +26755,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "黒胡椒",
@@ -27064,7 +27064,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "味の素",
@@ -27273,7 +27273,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "大根",
@@ -27717,7 +27717,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "鰹節",
@@ -28079,7 +28079,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    }
   ]
  },
@@ -28125,7 +28125,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "しめじ",
@@ -28369,7 +28369,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -28760,7 +28760,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ウインナー",
@@ -29279,7 +29279,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "生姜",
@@ -29424,7 +29424,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -29960,7 +29960,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "醤油",
@@ -30142,7 +30142,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "タバスコ",
@@ -31142,7 +31142,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "もやし",
@@ -31478,7 +31478,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -31678,7 +31678,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "豚バラ",
@@ -31986,7 +31986,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "生姜",
@@ -32059,7 +32059,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "ごま油",
@@ -32385,7 +32385,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ごま油",
@@ -32667,7 +32667,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -32713,7 +32713,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "椎茸",
@@ -32821,7 +32821,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    }
   ]
  },
@@ -32975,7 +32975,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "山椒",
@@ -33120,7 +33120,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "ラー油",
@@ -33846,7 +33846,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "タバスコ",
@@ -33910,7 +33910,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "タバスコ",
@@ -34010,7 +34010,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "海苔",
@@ -34119,7 +34119,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "卵",
@@ -34309,7 +34309,7 @@
     "type1": "seasoning",
     "type2": "",
     "rarity": 3,
-    "group": "ネギ類"
+    "group": ""
    },
    {
     "name": "コチュジャン",
@@ -34781,7 +34781,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "酒",
@@ -35935,7 +35935,7 @@
     "type1": "ingredient",
     "type2": "veggies",
     "rarity": 1,
-    "group": "ネギ類"
+    "group": "長ネギ"
    },
    {
     "name": "水",
