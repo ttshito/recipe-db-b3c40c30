@@ -40,13 +40,14 @@ const state = {
   mode: 'make',        // 'make' = Case 3, 'search' = Case 2
   sel: new Set(),
   syn: true,
+  synOff: new Set(),   // 個別にOFFにした同義グループのid
   ignoreSeas: true,   // 調味料は家にある前提（Case 3 の初期値）
   maxMissing: 1,
   sort: 'missing',
   q: '',
 };
 
-const ui = { level: {}, filter: '' };
+const ui = { level: {}, filter: '', advOpen: false };
 
 async function load() {
   const get = p => fetch(p).then(r => {
@@ -110,7 +111,13 @@ async function load() {
 // ============================================================
 
 // 同義グループONなら、グループ内の具材は同じキーになる
-const keyOf = base => (state.syn && db.groupOf.has(base)) ? 'G:' + db.groupOf.get(base) : base;
+const groupOn = id => state.syn && !state.synOff.has(id);
+// その具材に効いている同義グループ（効いていなければ null）
+const activeGroup = base => {
+  const g = db.groupOf.get(base);
+  return g && groupOn(g) ? g : null;
+};
+const keyOf = base => { const g = activeGroup(base); return g ? 'G:' + g : base; };
 const haveKeys = () => new Set([...state.sel].map(keyOf));
 const recipeKeys = r => new Set([...r.bases].map(keyOf));
 const titleHit = r => !state.q || r.title.toLowerCase().includes(state.q.toLowerCase());
@@ -232,16 +239,17 @@ function renderPanel(counts) {
     const chips = visible.map(i => {
       const on = state.sel.has(i.name);
       const g = db.groupOf.get(i.name);
-      const implied = !on && state.syn && g && have.has('G:' + g);
+      const gOn = activeGroup(i.name);
+      const implied = !on && gOn && have.has('G:' + gOn);
       const n = counts ? counts.get(i.name) : i.uses;
       const dim = !on && n === 0;
       const title = [
         `${i.uses}本のレシピで使用`,
-        g ? `同義グループ: ${g}（${db.groups.get(g).members.join(' / ')}）` : '',
+        g ? `同義グループ: ${g}（${db.groups.get(g).members.join(' / ')}）${gOn ? '' : ' ※いまOFF'}` : '',
         implied ? '同義グループの別具材を選択済みなので、これも「ある」扱いです' : '',
       ].filter(Boolean).join('\n');
       return `<label class="chip r${i.rarity}${on ? ' on' : ''}${dim ? ' dim' : ''}${implied ? ' impl' : ''}" title="${esc(title)}">
-        <input type="checkbox" data-ing="${esc(i.name)}" ${on ? 'checked' : ''}>${esc(i.name)}${g && state.syn ? '<span class="g">≈</span>' : ''}<span class="n">${n}</span></label>`;
+        <input type="checkbox" data-ing="${esc(i.name)}" ${on ? 'checked' : ''}>${esc(i.name)}${gOn ? '<span class="g">≈</span>' : ''}<span class="n">${n}</span></label>`;
     }).join('');
 
     let more = '';
@@ -262,6 +270,25 @@ function renderPanel(counts) {
     html.push(`<div class="cat"><h3>${cat.label}${cat.id === 'carb' ? `<span class="note">${note}</span>` : ''}</h3><div class="chips">${chips}</div>${more}</div>`);
   }
   $('#categories').innerHTML = html.join('');
+  renderAdv();
+}
+
+// 上級者向け: 同義グループを個別にON/OFF（具材パネルの末尾に畳んで置く）
+function renderAdv() {
+  const rows = [...db.groups].map(([id, g]) => {
+    const on = !state.synOff.has(id);
+    const uses = g.members.filter(m => db.items.get(m)?.uses).length;
+    return `<label class="adv-row${state.syn ? '' : ' dim'}">
+      <input type="checkbox" data-group="${esc(id)}" ${on ? 'checked' : ''} ${state.syn ? '' : 'disabled'}>
+      <span><b>${esc(id)}</b> <span class="adv-mem">${esc(g.members.join(' ／ '))}<span class="adv-n">（データに${uses}品）</span></span></span>
+    </label>`;
+  }).join('');
+  $('#adv').innerHTML = `<details class="adv" ${ui.advOpen ? 'open' : ''}>
+    <summary>詳細設定：同義グループを個別に選ぶ${state.synOff.size ? ` <span class="count">${db.groups.size - state.synOff.size}/${db.groups.size}</span>` : ''}</summary>
+    <p class="adv-note">☑にしたグループは、中のどれか1つを持っていれば全部「ある」扱いになります。${state.syn ? '' : '<br>上の「同義グループ」がOFFのため、いまはどれも効いていません。'}</p>
+    ${rows}
+    <div class="panel-buttons"><button class="ghost small" id="adv-all">全部ON</button><button class="ghost small" id="adv-none">全部OFF</button></div>
+  </details>`;
 }
 
 function ingChips(res) {
@@ -374,6 +401,8 @@ function toParams() {
   p.set('m', state.mode);
   if (state.sel.size) p.set('i', [...state.sel].join(','));
   p.set('syn', state.syn ? '1' : '0');
+  if (state.synOff.size) p.set('synoff', [...state.synOff].join(','));
+  if (ui.advOpen) p.set('adv', '1');
   if (state.mode === 'make') {
     p.set('max', String(state.maxMissing));
     if (!state.ignoreSeas) p.set('seas', '1');
@@ -387,6 +416,8 @@ function fromParams(p) {
   if (p.has('m')) state.mode = p.get('m') === 'search' ? 'search' : 'make';
   if (p.has('i')) state.sel = new Set(p.get('i').split(',').filter(n => db.items.has(n)));
   if (p.has('syn')) state.syn = p.get('syn') !== '0';
+  state.synOff = new Set((p.get('synoff') ?? '').split(',').filter(id => db.groups.has(id)));
+  ui.advOpen = p.get('adv') === '1';
   if (p.has('max')) state.maxMissing = Math.min(3, Math.max(0, parseInt(p.get('max'), 10) || 0));
   state.ignoreSeas = p.get('seas') !== '1';
   if (p.has('sort')) state.sort = p.get('sort');
@@ -433,6 +464,20 @@ function bind() {
     e.target.checked ? state.sel.add(n) : state.sel.delete(n);
     render();
   });
+  $('#adv').addEventListener('toggle', e => { ui.advOpen = e.target.open; save(); }, true);
+  $('#adv').addEventListener('change', e => {
+    const id = e.target.dataset.group;
+    if (!id) return;
+    e.target.checked ? state.synOff.delete(id) : state.synOff.add(id);
+    render();
+  });
+  $('#adv').addEventListener('click', e => {
+    if (e.target.id === 'adv-all') state.synOff.clear();
+    else if (e.target.id === 'adv-none') state.synOff = new Set(db.groups.keys());
+    else return;
+    render();
+  });
+
   $('#categories').addEventListener('click', e => {
     const b = e.target.closest('button.more');
     if (b) { ui.level[b.dataset.cat] = Number(b.dataset.lv); renderResults(); }
