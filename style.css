@@ -120,6 +120,7 @@ button { cursor: pointer; }
 .more {
   margin-top: 6px; border: 0; background: none; color: var(--accent); font-size: 12px; padding: 2px 0;
 }
+.more + .more { margin-left: 12px; }
 
 .adv { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 10px; }
 .adv > summary { font-size: 12px; color: var(--muted); cursor: pointer; }

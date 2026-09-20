@@ -48,7 +48,7 @@ const state = {
   q: '',
 };
 
-const ui = { level: {}, filter: '', advOpen: false };
+const ui = { level: {}, filter: '', advOpen: false, collapsed: { seas: true } };  // 調味料は最初は畳む
 
 async function load() {
   const get = p => fetch(p).then(r => {
@@ -239,6 +239,13 @@ function renderPanel(counts) {
     const all = [...db.items.values()].filter(i => i.cat === cat.id)
       .sort((a, b) => a.rarity - b.rarity || b.uses - a.uses);
     const maxLevel = ui.level[cat.id] ?? 1;
+    // 畳んでいるカテゴリは見出しと開くボタンだけ（具材名で絞り込み中は中身を出す）
+    if (ui.collapsed[cat.id] && !f) {
+      const sel = all.filter(i => state.sel.has(i.name)).length;
+      html.push(`<div class="cat"><h3>${cat.label}</h3>
+        <button class="more" data-open="${cat.id}">▼ 表示する（${all.length}品${sel ? `・${sel}品を選択中` : ''}）</button></div>`);
+      continue;
+    }
     const visible = all.filter(i =>
       f ? i.name.includes(f) : (i.rarity <= maxLevel || state.sel.has(i.name)));
     if (!all.length || (!visible.length && f)) continue;
@@ -272,6 +279,7 @@ function renderPanel(counts) {
       } else if (maxLevel > 1) {
         more = `<button class="more" data-cat="${cat.id}" data-lv="1">▲ 閉じる</button>`;
       }
+      if (cat.id in ui.collapsed) more += `<button class="more" data-close="${cat.id}">▲ 隠す</button>`;
     }
     const note = counts ? '数字=追加した場合の件数' : '数字=使用レシピ数';
     html.push(`<div class="cat"><h3>${cat.label}${cat.id === 'carb' ? `<span class="note">${note}</span>` : ''}</h3><div class="chips">${chips}</div>${more}</div>`);
@@ -493,7 +501,11 @@ function bind() {
 
   $('#categories').addEventListener('click', e => {
     const b = e.target.closest('button.more');
-    if (b) { ui.level[b.dataset.cat] = Number(b.dataset.lv); renderResults(); }
+    if (!b) return;
+    if (b.dataset.open) ui.collapsed[b.dataset.open] = false;
+    else if (b.dataset.close) { ui.collapsed[b.dataset.close] = true; ui.level[b.dataset.close] = 1; }
+    else ui.level[b.dataset.cat] = Number(b.dataset.lv);
+    renderResults();
   });
   $('#ing-filter').addEventListener('input', e => { ui.filter = e.target.value; renderResults(); });
 
@@ -506,6 +518,7 @@ function bind() {
   $('#clear').addEventListener('click', () => { state.sel.clear(); state.must.clear(); render(); });
   $('#bulk-seas').addEventListener('click', () => {
     for (const it of db.items.values()) if (it.inMaster && it.isSeas && it.rarity === 1) state.sel.add(it.name);
+    ui.collapsed.seas = false;
     render();
     toast('rarity 1 の調味料を選択しました');
   });
