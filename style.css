@@ -115,7 +115,6 @@ button { cursor: pointer; }
 .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 .chip.on .n, .chip.on .g { color: rgb(255 255 255 / .8); }
 .chip.dim { opacity: .4; }
-.chip.impl { border-style: dashed; border-color: var(--accent); }
 .chip.r2 { font-size: 12.5px; }
 .chip.r3 { font-size: 12px; }
 .more {

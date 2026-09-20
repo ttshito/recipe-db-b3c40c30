@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20260920-1916';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20260920-1925';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
@@ -50,7 +50,7 @@ const state = {
   q: '',
 };
 
-const ui = { level: {}, filter: '', advOpen: false, collapsed: { seas: true }, seasTags: false };  // 調味料は最初は畳む
+const ui = { level: {}, filter: '', advOpen: false, collapsed: { seas: true }, seasTags: false, units: new Map() };  // 調味料は最初は畳む
 
 async function load() {
   const get = p => fetch(p).then(r => {
@@ -102,6 +102,9 @@ async function load() {
       bases: new Set(rows.map(x => x.base)),
     };
   });
+
+  db.groupUses = new Map([...db.groups].map(([id, g]) =>
+    [id, db.recipes.filter(r => g.members.some(m => r.bases.has(m))).length]));
 
   for (const it of db.items.values()) {
     it.isSeas = it.type1 === 'seasoning';
@@ -230,7 +233,7 @@ function renderSelected() {
     const on = state.must.has(n);
     return `<span class="tag${on ? ' must' : ''}">
       ${star ? `<button class="star" data-must="${esc(n)}" title="${esc(n)}を必ず使うレシピだけに絞る" aria-pressed="${on}">${on ? '★' : '☆'}</button>` : ''}
-      ${esc(n)}<button data-rm="${esc(n)}" aria-label="${esc(n)}を外す">×</button></span>`;
+      ${esc(activeGroup(n) ?? n)}<button data-rm="${esc(n)}" aria-label="${esc(n)}を外す">×</button></span>`;
   };
   const sel = [...state.sel];
   // 調味料のタグは数が多く画面を圧迫するので、既定ではまとめて1つにする
@@ -242,45 +245,67 @@ function renderSelected() {
       : `<button class="tag-more" data-seastags="1">調味料 ${seas.length}品 ▼</button>`) : '');
 }
 
+// 具材パネルの表示単位。同義グループがONなら、そのメンバーは1つのボタンにまとめる
+function panelUnits() {
+  const out = [];
+  const done = new Set();
+  for (const it of db.items.values()) {
+    const g = activeGroup(it.name);
+    if (!g) {
+      out.push({ key: it.name, label: it.name, cat: it.cat, rarity: it.rarity, uses: it.uses, members: [it.name] });
+      continue;
+    }
+    if (done.has(g)) continue;
+    done.add(g);
+    const members = db.groups.get(g).members.filter(m => db.items.has(m)).map(m => db.items.get(m));
+    const main = members.reduce((a, b) => (b.uses > a.uses ? b : a));   // いちばん使われているメンバー
+    const rep = db.items.get(db.groups.get(g).representative) ?? main;  // 分類は代表に合わせる
+    out.push({
+      key: 'G:' + g, label: g, cat: rep.cat, group: g, members: members.map(m => m.name),
+      rarity: Math.min(...members.map(m => m.rarity)),
+      uses: db.groupUses.get(g),          // グループ全体での使用本数
+      pick: main.name,                    // 選んだときに実際に入れる具材
+    });
+  }
+  ui.units = new Map(out.map(u => [u.key, u]));
+  return out;
+}
+
 function renderPanel(counts) {
   const f = ui.filter.trim();
-  const have = haveKeys();
+  const units = panelUnits();
   const html = [];
   for (const cat of CATEGORIES) {
-    const all = [...db.items.values()].filter(i => i.cat === cat.id)
+    const all = units.filter(u => u.cat === cat.id)
       .sort((a, b) => a.rarity - b.rarity || b.uses - a.uses);
     const maxLevel = ui.level[cat.id] ?? 1;
+    const isOn = u => u.members.some(n => state.sel.has(n));
     // 畳んでいるカテゴリは見出しと開くボタンだけ（具材名で絞り込み中は中身を出す）
     if (ui.collapsed[cat.id] && !f) {
-      const sel = all.filter(i => state.sel.has(i.name)).length;
+      const sel = all.filter(isOn).length;
       html.push(`<div class="cat"><h3>${cat.label}
         <button class="more" data-open="${cat.id}">▼ 表示する（${all.length}品${sel ? `・${sel}品を選択中` : ''}）</button></h3></div>`);
       continue;
     }
-    const visible = all.filter(i =>
-      f ? i.name.includes(f) : (i.rarity <= maxLevel || state.sel.has(i.name)));
+    const hit = u => u.label.includes(f) || u.members.some(n => n.includes(f));
+    const visible = all.filter(u => f ? hit(u) : (u.rarity <= maxLevel || isOn(u)));
     if (!all.length || (!visible.length && f)) continue;
 
-    const chips = visible.map(i => {
-      const on = state.sel.has(i.name);
-      const g = db.groupOf.get(i.name);
-      const gOn = activeGroup(i.name);
-      const implied = !on && gOn && have.has('G:' + gOn);
-      const n = counts ? counts.get(i.name) : i.uses;
+    const chips = visible.map(u => {
+      const on = isOn(u);
+      const n = counts ? counts.get(u.key) : u.uses;
       const dim = !on && n === 0;
-      const title = [
-        `${i.uses}本のレシピで使用`,
-        g ? `同義グループ: ${g}（${db.groups.get(g).members.join(' / ')}）${gOn ? '' : ' ※いまOFF'}` : '',
-        implied ? '同義グループの別具材を選択済みなので、これも「ある」扱いです' : '',
-      ].filter(Boolean).join('\n');
-      return `<label class="chip r${i.rarity}${on ? ' on' : ''}${dim ? ' dim' : ''}${implied ? ' impl' : ''}" title="${esc(title)}">
-        <input type="checkbox" data-ing="${esc(i.name)}" ${on ? 'checked' : ''}>${esc(i.name)}${gOn ? '<span class="g">≈</span>' : ''}<span class="n">${n}</span></label>`;
+      const title = u.group
+        ? `同義グループ「${u.group}」: ${u.members.join(' / ')}\nまとめて${u.uses}本のレシピで使用（詳細設定で個別に分けられます）`
+        : `${u.uses}本のレシピで使用`;
+      return `<label class="chip r${u.rarity}${on ? ' on' : ''}${dim ? ' dim' : ''}" title="${esc(title)}">
+        <input type="checkbox" data-unit="${esc(u.key)}" ${on ? 'checked' : ''}>${esc(u.label)}${u.group ? '<span class="g">≈</span>' : ''}<span class="n">${n}</span></label>`;
     }).join('');
 
     let more = '';
     if (!f) {
-      const hidden2 = all.filter(i => i.rarity === 2).length;
-      const hidden3 = all.filter(i => i.rarity === 3).length;
+      const hidden2 = all.filter(u => u.rarity === 2).length;
+      const hidden3 = all.filter(u => u.rarity === 3).length;
       if (maxLevel === 1 && hidden2 + hidden3) {
         more = hidden2
           ? `<button class="more" data-cat="${cat.id}" data-lv="2">▼ もっと見る (+${hidden2})</button>`
@@ -389,9 +414,9 @@ function renderResults() {
     const res = searchResults();
     // 各具材を追加したら何件になるか（0件の具材は薄く表示）
     const counts = new Map();
-    for (const it of db.items.values()) {
-      const k = keyOf(it.name);
-      counts.set(it.name, res.filter(x => x.keys.has(k)).length);
+    for (const u of panelUnits()) {
+      const k = keyOf(u.pick ?? u.key);
+      counts.set(u.key, res.filter(x => x.keys.has(k)).length);
     }
     renderPanel(counts);
     const cond = state.sel.size ? [...state.sel].map(esc).join(' AND ') : '条件なし（全件）';
@@ -498,10 +523,10 @@ function bind() {
   $('#syn').addEventListener('change', e => { state.syn = e.target.checked; render(); });
 
   $('#categories').addEventListener('change', e => {
-    const n = e.target.dataset.ing;
-    if (!n) return;
-    if (e.target.checked) state.sel.add(n);
-    else { state.sel.delete(n); state.must.delete(n); }
+    const u = ui.units?.get(e.target.dataset.unit);
+    if (!u) return;
+    if (e.target.checked) state.sel.add(u.pick ?? u.key);
+    else for (const m of u.members) { state.sel.delete(m); state.must.delete(m); }
     render();
   });
   $('#adv').addEventListener('toggle', e => { ui.advOpen = e.target.open; save(); }, true);
