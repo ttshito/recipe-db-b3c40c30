@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20261022-0803';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20261022-0808';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ページごとの設定。全動画版（all/index.html）は window.SITE で上書きする
 const SITE = Object.assign({
@@ -111,7 +111,7 @@ async function load() {
     }
     return {
       id: r.videoId, title: r.title, url: r.url, published: r.published,
-      thumbnail: r.thumbnail, hasRecipe: r.hasRecipe, isShort: !!r.isShort, rows,
+      thumbnail: r.thumbnail, hasRecipe: r.hasRecipe, isShort: !!r.isShort, multi: !!r.multi, rows,
       bases: new Set(rows.map(x => x.base)),
     };
   });
@@ -163,7 +163,8 @@ function makeResults() {
   const have = haveKeys();
   const out = [];
   for (const r of db.recipes) {
-    if (!titleHit(r)) continue;
+    // 複数の料理の材料がまとめて入っている回は、1品として作れる判定ができないので出さない
+    if (r.multi || !titleHit(r)) continue;
     const keys = recipeKeys(r);
     // ★を付けた具材は全部使うレシピだけ。★が無ければ、選んだ食材を1つ以上使うレシピ
     const ok = state.must.size
@@ -415,7 +416,8 @@ function card(res) {
     <div>
       <h2><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a></h2>
       <div class="meta"><span>${r.published}</span><span>具材 ${r.rows.length}品</span>
-        ${r.hasRecipe ? '' : '<span class="badge">説明文にレシピなし（手作業補完）</span>'}</div>
+        ${r.hasRecipe ? '' : '<span class="badge">説明文にレシピなし（手作業補完）</span>'}
+        ${r.multi ? '<span class="badge">複数の料理の材料をまとめたもの</span>' : ''}</div>
       ${status}
       ${r.rows.length ? `<div class="ings">${ingChips(res)}${seasCount ? `<span class="ing">＋調味料 ${seasCount}品</span>` : ''}</div>
       <details><summary>材料と分量をすべて見る</summary>${fullTable(res)}</details>` : '<div class="meta">材料データなし（動画でご確認ください）</div>'}
