@@ -4,7 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 V=$(date +%Y%m%d-%H%M)
-sed -i -E "s/(style\.css\?v=)[0-9-]+/\1$V/; s/(app\.js\?v=)[0-9-]+/\1$V/" index.html
+sed -i -E "s/(style\.css\?v=)[0-9-]+/\1$V/; s/(app\.js\?v=)[0-9-]+/\1$V/" index.html all/index.html
 sed -i -E "s/^const BUILD = '[0-9-]+';/const BUILD = '$V';/" app.js
 git add -A
 git commit -q -m "${1:-更新} (版 $V)"

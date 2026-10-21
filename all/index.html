@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>レシピ検索ツール 全動画版</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍳</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261022-0105">
+</head>
+<body>
+<header class="topbar">
+  <h1>レシピ検索ツール <span class="sub">全動画版 <a href="../">← 再生リスト版</a></span></h1>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-mode="make">冷蔵庫から作れる料理</button>
+    <button role="tab" data-mode="search">具材で検索 (AND)</button>
+  </nav>
+  <div class="topbar-actions">
+    <label class="switch" title="ONにすると「胡椒はどれでも可」のように同義グループ内の具材を同一視します">
+      <input type="checkbox" id="syn"> <span>同義グループ</span>
+    </label>
+    <button id="share" class="ghost">URLをコピー</button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="panel" id="panel">
+    <details open id="panel-details">
+      <summary>具材を選ぶ <span id="sel-count" class="count"></span></summary>
+      <div class="panel-tools">
+        <input type="search" id="ing-filter" placeholder="具材名で絞り込み">
+      </div>
+      <div id="categories"></div>
+      <div id="adv"></div>
+    </details>
+  </aside>
+
+  <section class="results">
+    <div class="controls" id="controls"></div>
+    <div class="selected" id="selected"></div>
+    <div class="summary" id="summary"></div>
+    <div class="cards" id="cards"></div>
+  </section>
+</main>
+
+<footer class="notice">
+  <p><strong>テスト版・非公式のファンメイド検索ツールです。</strong>動画の制作者・YouTube とは関係ありません。</p>
+  <p>全動画版: チャンネルの全動画のうち、説明文に材料が載っているものを収録しています（2026-10-21 取得）。材料は自動抽出のため、誤りが含まれることがあります。</p>
+  <p>動画タイトル・サムネイル・レシピの権利は各動画の制作者に帰属します。サムネイルは YouTube から直接表示しており、このサイトには保存していません。</p>
+  <p>ここに載せているのは、動画説明文から抽出した<strong>材料と分量の一覧だけ</strong>です。作り方は各動画でご覧ください。</p>
+  <p>権利者の方からご連絡をいただいた場合は、速やかに該当部分を削除します（連絡先はテスト案内をお送りした配布者まで）。</p>
+  <p class="ver">版 <span id="build"></span>　<button id="refresh" class="ghost small">最新版に更新</button>
+    <span class="ver-note">画面が古いままのときに押してください（選んだ具材はそのまま残ります）。</span></p>
+</footer>
+
+<div id="toast" class="toast" hidden></div>
+<script>
+  // 全動画版の設定（app.js の SITE を上書き）
+  window.SITE = { data: '../data-all/', key: '-all', hideEmpty: true, shorts: true, pageSize: 60 };
+</script>
+<script src="../app.js?v=20261022-0105"></script>
+</body>
+</html>

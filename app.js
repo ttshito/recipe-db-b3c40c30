@@ -1,18 +1,28 @@
 'use strict';
 
-const BUILD = '20260921-0002';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20261022-0105';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+
+// ページごとの設定。全動画版（all/index.html）は window.SITE で上書きする
+const SITE = Object.assign({
+  data: 'data/',      // データ3点の置き場所
+  key: '',            // localStorage のキーの接尾辞（版ごとに状態を分ける）
+  hideEmpty: false,   // 材料データの無い動画を出さない
+  shorts: false,      // 「ショートも含める」の切り替えを出す（isShort があるデータ用）
+  pageSize: Infinity, // 一度に描くカードの数
+}, window.SITE || {});
 
 // ============================================================
 // モック側の設定（データには焼き込まれていない判断）
 // ============================================================
 
 // 誰でも常に持っているもの。不足にも具材パネルにも出さない
-const ALWAYS_AVAILABLE = new Set(['水', 'お湯', 'パスタの茹で汁', '茹で汁']);
+const ALWAYS_AVAILABLE = new Set(['水', 'お湯', '熱湯', '冷水', 'ぬるま湯', 'パスタの茹で汁', '茹で汁']);
 
 // 「Aがあれば作れる」もの（別物なので synonyms.json の表記統一には入れない）
 // 同じ物の別表記は data/synonyms.json の notationVariants に置く
 const DERIVED = {
-  '卵黄': '卵', '卵白': '卵', '大根おろし': '大根', 'おろし生姜': '生姜', '梅肉': '梅干し',
+  '卵黄': '卵', '卵白': '卵', 'ゆで卵': '卵', '大根おろし': '大根', '大根の皮': '大根',
+  'おろし生姜': '生姜', '梅肉': '梅干し',
 };
 
 // 具材パネルのカテゴリ（企画書 §4 Case2: 炭水化物/タンパク質/野菜/調味料）
@@ -25,7 +35,7 @@ const CATEGORIES = [
   { id: 'extra',   label: 'マスタ外（データ更新で増えた未登録の具材）', test: () => true },
 ];
 
-const LS_KEY = 'recipe-db-state-v1';
+const LS_KEY = 'recipe-db-state-v1' + SITE.key;
 
 // ============================================================
 // データ
@@ -48,17 +58,19 @@ const state = {
   maxMissing: 1,
   sort: 'missing',
   q: '',
+  shorts: true,       // ショート動画も含める（SITE.shorts のときだけ効く）
 };
 
-const ui = { level: {}, filter: '', advOpen: false, collapsed: { seas: true }, seasTags: false, units: new Map() };  // 調味料は最初は畳む
+const ui = { limit: SITE.pageSize, level: {}, filter: '', advOpen: false, collapsed: { seas: true }, seasTags: false, units: new Map() };  // 調味料は最初は畳む
 
 async function load() {
   const get = p => fetch(p).then(r => {
     if (!r.ok) throw new Error(`${p}: ${r.status}`);
     return r.json();
   });
-  const [recipes, ingredients, synonyms] = await Promise.all([
-    get(`data/recipes.json?v=${BUILD}`), get(`data/ingredients.json?v=${BUILD}`), get(`data/synonyms.json?v=${BUILD}`),
+  let [recipes, ingredients, synonyms] = await Promise.all([
+    get(`${SITE.data}recipes.json?v=${BUILD}`), get(`${SITE.data}ingredients.json?v=${BUILD}`),
+    get(`${SITE.data}synonyms.json?v=${BUILD}`),
   ]);
 
   const variants = synonyms.notationVariants;
@@ -80,6 +92,7 @@ async function load() {
     db.items.set(name, { name, type1: i.type1, type2: i.type2, rarity: i.rarity, inMaster: true, uses: 0 });
   }
 
+  if (SITE.hideEmpty) recipes = recipes.filter(r => r.ingredients.length);
   db.recipes = recipes.map(r => {
     const rows = [];
     const seen = new Set();
@@ -98,7 +111,7 @@ async function load() {
     }
     return {
       id: r.videoId, title: r.title, url: r.url, published: r.published,
-      thumbnail: r.thumbnail, hasRecipe: r.hasRecipe, rows,
+      thumbnail: r.thumbnail, hasRecipe: r.hasRecipe, isShort: !!r.isShort, rows,
       bases: new Set(rows.map(x => x.base)),
     };
   });
@@ -126,7 +139,8 @@ const activeGroup = base => {
 const keyOf = base => { const g = activeGroup(base); return g ? 'G:' + g : base; };
 const haveKeys = () => new Set([...state.sel].map(keyOf));
 const recipeKeys = r => new Set([...r.bases].map(keyOf));
-const titleHit = r => !state.q || r.title.toLowerCase().includes(state.q.toLowerCase());
+const titleHit = r => (!SITE.shorts || state.shorts || !r.isShort) &&
+  (!state.q || r.title.toLowerCase().includes(state.q.toLowerCase()));
 
 // Case 2: 選んだ具材を全部使うレシピ
 function searchResults() {
@@ -185,6 +199,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 function render() {
+  ui.limit = SITE.pageSize;   // 条件が変わったら先頭から描き直す
   document.querySelectorAll('.tabs button').forEach(b =>
     b.setAttribute('aria-selected', String(b.dataset.mode === state.mode)));
   $('#syn').checked = state.syn;
@@ -214,11 +229,13 @@ function renderControls() {
   const ctl = $('#controls');
   if (!ctl.querySelector('#q')) {
     ctl.innerHTML = `<input type="search" id="q" placeholder="料理名で絞り込み（例: うどん）"><span id="ctl-dyn" style="display:contents"></span>`;
-    $('#q').addEventListener('input', e => { state.q = e.target.value; renderResults(); save(); });
+    $('#q').addEventListener('input', e => { state.q = e.target.value; ui.limit = SITE.pageSize; renderResults(); save(); });
   }
   $('#q').value = state.q;
   $('#ctl-dyn').innerHTML = `
     ${makeCtl}
+    ${SITE.shorts ? `<label title="1分前後の縦型動画も結果に含めます">
+      <input type="checkbox" id="shorts" ${state.shorts ? 'checked' : ''}> ショートも含める</label>` : ''}
     <label>並び順
       <select id="sort">${sortOpts.map(([v, l]) => `<option value="${v}" ${state.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
     </label>
@@ -407,6 +424,13 @@ function card(res) {
   </article>`;
 }
 
+// 件数が多いと描画が重いので、SITE.pageSize 件ずつ出す
+function cardList(res) {
+  const rest = res.length - ui.limit;
+  return res.slice(0, ui.limit).map(card).join('') + (rest > 0
+    ? `<button id="more-cards" class="more-cards">▼ もっと見る（残り ${rest} 件）</button>` : '');
+}
+
 function renderResults() {
   const cards = $('#cards');
   const summary = $('#summary');
@@ -423,7 +447,7 @@ function renderResults() {
     const cond = state.sel.size ? [...state.sel].map(esc).join(' AND ') : '条件なし（全件）';
     summary.innerHTML = `<strong>${res.length}</strong> 件 <span class="bucket">${cond}</span>`;
     cards.innerHTML = res.length
-      ? res.map(card).join('')
+      ? cardList(res)
       : `<div class="empty">この組み合わせのレシピはありません。<br>具材を外すか、同義グループをONにしてみてください。</div>`;
     return;
   }
@@ -450,7 +474,7 @@ function renderResults() {
   summary.innerHTML = `${mustNote}
     <span class="bucket">表示中 <strong>${res.length}</strong> 件</span>${bar}`;
   cards.innerHTML = res.length
-    ? res.map(card).join('')
+    ? cardList(res)
     : `<div class="empty">不足${state.maxMissing}つ以内で作れるレシピはありません。<br>
         「不足を許す」を増やすか、${state.must.size ? '★を減らして' : '具材を追加して'}みてください。</div>`;
 }
@@ -472,6 +496,7 @@ function toParams() {
     if (!state.ignoreSeas) p.set('seas', '1');
   }
   p.set('sort', state.sort);
+  if (SITE.shorts && !state.shorts) p.set('short', '0');
   if (state.q) p.set('q', state.q);
   return p;
 }
@@ -486,6 +511,7 @@ function fromParams(p) {
   if (p.has('max')) state.maxMissing = Math.min(3, Math.max(0, parseInt(p.get('max'), 10) || 0));
   state.ignoreSeas = p.get('seas') !== '1';
   if (p.has('sort')) state.sort = p.get('sort');
+  state.shorts = p.get('short') !== '0';
   state.q = p.get('q') ?? '';
 }
 
@@ -583,8 +609,15 @@ function bind() {
   $('#controls').addEventListener('change', e => {
     if (e.target.id === 'sort') state.sort = e.target.value;
     else if (e.target.id === 'ignore-seas') state.ignoreSeas = e.target.checked;
+    else if (e.target.id === 'shorts') state.shorts = e.target.checked;
     else return;
     render();
+  });
+
+  $('#cards').addEventListener('click', e => {
+    if (e.target.id !== 'more-cards') return;
+    ui.limit += SITE.pageSize;
+    renderResults();
   });
 
   $('#share').addEventListener('click', async () => {
