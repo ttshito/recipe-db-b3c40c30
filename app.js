@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20261022-0105';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20261022-0803';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ページごとの設定。全動画版（all/index.html）は window.SITE で上書きする
 const SITE = Object.assign({
