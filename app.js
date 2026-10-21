@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20261022-0808';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20261022-0811';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ページごとの設定。全動画版（all/index.html）は window.SITE で上書きする
 const SITE = Object.assign({
@@ -642,8 +642,22 @@ function bind() {
   if (matchMedia('(max-width: 820px)').matches) $('#panel-details').open = state.sel.size === 0;
 }
 
+// Safari は HTML を古いまま持ち続けることがあるので、開いたときに最新の版番号を確かめる。
+// 新しい版が出ていれば、キャッシュ避けを付けて1回だけ開き直す（ループしないよう版ごとに1回）
+async function checkUpdate() {
+  try {
+    const html = await (await fetch(`${location.pathname}?cb=${Date.now().toString(36)}`, { cache: 'no-store' })).text();
+    const latest = html.match(/app\.js\?v=([0-9-]+)/)?.[1];
+    if (!latest || latest === BUILD || sessionStorage.getItem('reloaded-for') === latest) return;
+    sessionStorage.setItem('reloaded-for', latest);
+    const p = toParams();
+    p.set('cb', Date.now().toString(36));
+    location.replace(location.pathname + '?' + p.toString());
+  } catch { /* オフライン等。古い版のまま使う */ }
+}
+
 load()
-  .then(() => { restore(); bind(); render(); })
+  .then(() => { restore(); bind(); render(); checkUpdate(); })
   .catch(err => {
     document.querySelector('#cards').innerHTML =
       `<div class="empty">データを読み込めませんでした（${esc(err.message)}）。<br>
