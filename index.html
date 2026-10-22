@@ -6,14 +6,15 @@
 <meta name="robots" content="noindex, nofollow">
 <title>レシピ検索ツール</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍳</text></svg>">
-<link rel="stylesheet" href="style.css?v=20261022-1312">
+<link rel="stylesheet" href="style.css?v=20261022-1341">
 </head>
 <body>
 <header class="topbar">
   <h1>レシピ検索ツール <span class="sub">再生リスト版 <a href="all/">全動画版 →</a></span></h1>
   <nav class="tabs" role="tablist">
-    <button role="tab" data-mode="make">冷蔵庫から作れる料理</button>
-    <button role="tab" data-mode="search">具材で検索 (AND)</button>
+    <button role="tab" data-mode="make">冷蔵庫<span class="tl">から作れる料理</span></button>
+    <button role="tab" data-mode="search">具材で検索<span class="tl"> (AND)</span></button>
+    <button role="tab" data-mode="list">🛒 買い物<span class="tl">リスト</span><span id="list-count"></span></button>
   </nav>
   <div class="topbar-actions">
     <label class="switch" title="ONにすると「胡椒はどれでも可」のように同義グループ内の具材を同一視します">
@@ -53,6 +54,6 @@
 </footer>
 
 <div id="toast" class="toast" hidden></div>
-<script src="app.js?v=20261022-1312"></script>
+<script src="app.js?v=20261022-1341"></script>
 </body>
 </html>

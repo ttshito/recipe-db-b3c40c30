@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20261022-1312';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20261022-1341';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ページごとの設定。全動画版（all/index.html）は window.SITE で上書きする
 const SITE = Object.assign({
@@ -59,6 +59,9 @@ const state = {
   sort: 'missing',
   q: '',
   shorts: true,       // ショート動画も含める（SITE.shorts のときだけ効く）
+  list: [],           // 買い物リストに入れたレシピの videoId（入れた順）
+  buyOn: new Set(),   // 買い物リストで、既定ではチェックしない具材を手でチェックしたもの
+  buyOff: new Set(),  // 既定ではチェックする具材を手で外したもの
 };
 
 const ui = { limit: SITE.pageSize, level: {}, filter: '', advOpen: false, collapsed: { seas: true }, seasTags: false, units: new Map() };  // 調味料は最初は畳む
@@ -117,6 +120,7 @@ async function load() {
     };
   });
 
+  db.byId = new Map(db.recipes.map(r => [r.id, r]));
   db.groupUses = new Map([...db.groups].map(([id, g]) =>
     [id, db.recipes.filter(r => g.members.some(m => r.bases.has(m))).length]));
 
@@ -202,6 +206,8 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;'
 
 function render() {
   ui.limit = SITE.pageSize;   // 条件が変わったら先頭から描き直す
+  document.body.dataset.mode = state.mode;
+  $('#list-count').textContent = state.list.length ? `（${state.list.length}）` : '';
   document.querySelectorAll('.tabs button').forEach(b =>
     b.setAttribute('aria-selected', String(b.dataset.mode === state.mode)));
   $('#syn').checked = state.syn;
@@ -212,6 +218,7 @@ function render() {
 }
 
 function renderControls() {
+  if (state.mode === 'list') return;   // 買い物リストでは並び順などを使わない
   const sortOpts = state.mode === 'make'
     ? [['missing', '不足が少ない順'], ['count', '具材数が少ない順'], ['countDesc', '具材数が多い順']]
     : [['count', '具材数が少ない順'], ['countDesc', '具材数が多い順']];
@@ -422,9 +429,159 @@ function card(res) {
       ${status}
       ${r.rows.length ? `<div class="ings">${ingChips(res)}${seasCount ? `<span class="ing">＋調味料 ${seasCount}品</span>` : ''}</div>
       <details><summary>材料と分量をすべて見る</summary>${fullTable(res)}</details>` : '<div class="meta">材料データなし（動画でご確認ください）</div>'}
-      <a class="yt" href="${esc(r.url)}" target="_blank" rel="noopener">▶ YouTubeで作り方を見る</a>
+      <div class="card-actions">
+        <a class="yt" href="${esc(r.url)}" target="_blank" rel="noopener">▶ YouTubeで作り方を見る</a>
+        ${r.rows.length ? (state.list.includes(r.id)
+          ? `<button class="addlist on" data-list="${esc(r.id)}">✓ 買い物リストに入れた</button>`
+          : `<button class="addlist" data-list="${esc(r.id)}">＋ 買い物リスト</button>`) : ''}
+      </div>
     </div>
   </article>`;
+}
+
+// ============================================================
+// 買い物リスト（企画書 §4 Case 1）
+// ============================================================
+
+// 分数（a/b）。分量の合算に使う
+const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+const frac = (n, d = 1) => { const g = gcd(n, d) || 1; return [n / g, d / g]; };
+const fadd = ([a, b], [c, d]) => frac(a * d + c * b, b * d);
+// 「1」「1/2」「1と1/2」を分数に。小数は10倍して扱う
+function parseNum(t) {
+  let m = t.match(/^(\d+)と(\d+)\/(\d+)$/);
+  if (m) return frac(+m[1] * +m[3] + +m[2], +m[3]);
+  m = t.match(/^(\d+)\/(\d+)$/);
+  if (m) return frac(+m[1], +m[2]);
+  m = t.match(/^(\d+)(?:\.(\d))?$/);
+  if (m) return m[2] ? frac(+m[1] * 10 + +m[2], 10) : frac(+m[1]);
+  return null;
+}
+function fmtNum([n, d], unit) {
+  if (d === 1) return String(n);
+  if (/^(g|cc|L|cm)$/.test(unit)) return String(Math.round(n / d * 10) / 10);
+  const w = Math.floor(n / d), r = n % d;
+  return w ? `${w}と${r}/${d}` : `${r}/${d}`;
+}
+const UNITS = 'g|cc|L|cm|個|本|枚|片|袋|玉|丁|株|束|缶|パック|切れ|尾|つまみ|振り|回し|かけ|粒|合';
+const AMT_RE = new RegExp(`^(大さじ|小さじ)?(\\d+(?:と\\d+/\\d+|/\\d+|\\.\\d)?)(${UNITS})?$`);
+// 分量を [{unit, q}] に。数で表せないもの（適量・範囲など）は null
+function parseAmount(a) {
+  const main = (a || '').replace(/（.*）$/, '').replace(/^約/, '');
+  const terms = main.split(/と(?=大さじ|小さじ)/);
+  const out = [];
+  for (const t of terms) {
+    const m = t.match(AMT_RE);
+    if (!m || (!m[1] && !m[3])) return null;
+    const q = parseNum(m[2]);
+    if (!q) return null;
+    if (m[3] === 'L') out.push({ unit: 'cc', spoon: false, q: fadd(q, [0, 1]).map((v, i) => (i ? v : v * 1000)) });
+    else out.push({ unit: m[1] || m[3], spoon: !!m[1], q });
+  }
+  return out;
+}
+// 同じ単位どうしを足し、残りは並べる
+function sumAmounts(list) {
+  const sums = new Map();
+  const texts = [];
+  for (const a of list) {
+    if (!a) continue;
+    const p = parseAmount(a);
+    if (!p) { if (!texts.includes(a)) texts.push(a); continue; }
+    for (const { unit, spoon, q } of p) {
+      const cur = sums.get(unit);
+      sums.set(unit, { spoon, q: cur ? fadd(cur.q, q) : q });
+    }
+  }
+  const parts = [...sums].map(([u, { spoon, q }]) => spoon ? `${u}${fmtNum(q, u)}` : `${fmtNum(q, u)}${u}`);
+  return [...parts, ...texts].join('＋');
+}
+
+// 動画タイトルから料理名らしい部分（【】の中）を取り出す
+// 「※公式コラボ」「PR」のような飾りの【】は除き、最後の【】を使う。無ければタイトルの頭を短く
+function dishName(r) {
+  const tags = [...r.title.matchAll(/【([^】]+)】/g)].map(m => m[1])
+    .filter(t => !/^※|コラボ|PR|PRESENTS|ガチです/.test(t));
+  if (tags.length) return tags.at(-1);
+  const t = r.title.replace(/#\S+/g, '').trim();
+  return t.length > 16 ? t.slice(0, 16) + '…' : t;
+}
+
+// 選んだレシピの材料を具材ごとにまとめる
+function shoppingItems() {
+  const have = haveKeys();
+  const items = new Map();   // base -> {base, kind, rows:[{r, amount}]}
+  for (const id of state.list) {
+    const r = db.byId.get(id);
+    if (!r) continue;
+    for (const x of r.rows) {
+      const kind = x.option ? 'opt' : (x.item.isSeas ? 'seas' : 'main');
+      let it = items.get(x.base);
+      if (!it) items.set(x.base, it = { base: x.base, kind, rows: [] });
+      // 1つでも必須で使うレシピがあれば必須側に置く
+      if (kind === 'main' || (kind === 'seas' && it.kind === 'opt')) it.kind = kind;
+      it.rows.push({ r, amount: x.amount, name: x.name });
+    }
+  }
+  for (const it of items.values()) {
+    it.owned = have.has(keyOf(it.base));
+    it.total = sumAmounts(it.rows.map(x => x.amount));
+    const def = it.kind === 'main' && !it.owned;   // 既定でチェックするのは、持っていない必須の食材だけ
+    it.checked = def ? !state.buyOff.has(it.base) : state.buyOn.has(it.base);
+  }
+  return [...items.values()];
+}
+
+function renderList() {
+  $('#summary').innerHTML = '';
+  const recipes = state.list.map(id => db.byId.get(id)).filter(Boolean);
+  if (!recipes.length) {
+    $('#cards').innerHTML = `<div class="empty">買い物リストは空です。<br>
+      レシピのカードにある「＋ 買い物リスト」を押すと、ここに材料がまとまります。</div>`;
+    return;
+  }
+  const items = shoppingItems();
+  const li = it => `<li class="${it.checked ? 'on' : ''}">
+    <label><input type="checkbox" data-buy="${esc(it.base)}" ${it.checked ? 'checked' : ''}>
+      <span class="nm">${esc(it.base)}${it.owned ? '<span class="badge">持っている</span>' : ''}</span>
+      <span class="amt">${esc(it.total || '—')}</span></label>
+    ${recipes.length > 1 ? `<div class="from">${it.rows.map(x =>
+      `${esc(dishName(x.r))}${x.amount ? ` ${esc(x.amount)}` : ''}`).join(' ／ ')}</div>` : ''}
+  </li>`;
+  const group = (kind, label, open) => {
+    const list = items.filter(it => it.kind === kind);
+    if (!list.length) return '';
+    const n = list.filter(it => it.checked).length;
+    const body = `<ul class="shop-list">${list.map(li).join('')}</ul>`;
+    return kind === 'main' ? body : `<details class="shop-sub" ${open ? 'open' : ''}>
+      <summary>${label}（${list.length}品${n ? `・${n}品をチェック` : ''}）</summary>${body}</details>`;
+  };
+  const checked = items.filter(it => it.checked).length;
+  $('#cards').innerHTML = `<div class="shop">
+    <section class="shop-box">
+      <h3>買うもの <span class="count">${checked}品</span></h3>
+      <p class="shop-note">チェックした具材をコピーできます。持っている具材と調味料は、最初はチェックを外しています。</p>
+      ${group('main')}
+      ${group('seas', '調味料（家になければチェック）', ui.shopSeas)}
+      ${group('opt', '仕上げ・味変（任意）', ui.shopOpt)}
+      <div class="shop-buttons">
+        <button id="copy-list" class="primary" ${checked ? '' : 'disabled'}>チェックした${checked}品をコピー</button>
+        <button id="clear-list" class="ghost small">リストを空にする</button>
+      </div>
+    </section>
+    <section class="shop-box">
+      <h3>選んだレシピ <span class="count">${recipes.length}件</span></h3>
+      <ul class="shop-recipes">${recipes.map(r => `<li>
+        <a href="${esc(r.url)}" target="_blank" rel="noopener"><img src="${esc(r.thumbnail)}" alt="" loading="lazy"></a>
+        <a class="t" href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a>
+        <button class="ghost small" data-unlist="${esc(r.id)}" aria-label="リストから外す">外す</button></li>`).join('')}</ul>
+    </section>
+  </div>`;
+}
+
+function listText() {
+  const items = shoppingItems().filter(it => it.checked);
+  return `買い物リスト（${items.length}品）\n` + items.map(it => `・${it.base}${it.total ? ` ${it.total}` : ''}`).join('\n');
 }
 
 // 件数が多いと描画が重いので、SITE.pageSize 件ずつ出す
@@ -437,6 +594,7 @@ function cardList(res) {
 function renderResults() {
   const cards = $('#cards');
   const summary = $('#summary');
+  if (state.mode === 'list') { renderList(); return; }
 
   if (state.mode === 'search') {
     const res = searchResults();
@@ -494,18 +652,21 @@ function toParams() {
   p.set('syn', state.syn ? '1' : '0');
   if (state.synOff.size) p.set('synoff', [...state.synOff].join(','));
   if (ui.advOpen) p.set('adv', '1');
-  if (state.mode === 'make') {
+  if (state.mode !== 'search') {
     p.set('max', String(state.maxMissing));
     if (!state.ignoreSeas) p.set('seas', '1');
   }
   p.set('sort', state.sort);
   if (SITE.shorts && !state.shorts) p.set('short', '0');
+  if (state.list.length) p.set('list', state.list.join(','));
+  if (state.buyOn.size) p.set('bon', [...state.buyOn].join(','));
+  if (state.buyOff.size) p.set('boff', [...state.buyOff].join(','));
   if (state.q) p.set('q', state.q);
   return p;
 }
 
 function fromParams(p) {
-  if (p.has('m')) state.mode = p.get('m') === 'search' ? 'search' : 'make';
+  if (p.has('m')) state.mode = ['search', 'list'].includes(p.get('m')) ? p.get('m') : 'make';
   if (p.has('i')) state.sel = new Set(p.get('i').split(',').filter(n => db.items.has(n)));
   state.must = new Set((p.get('use') ?? '').split(',').filter(n => state.sel.has(n)));
   if (p.has('syn')) state.syn = p.get('syn') !== '0';
@@ -515,6 +676,9 @@ function fromParams(p) {
   state.ignoreSeas = p.get('seas') !== '1';
   if (p.has('sort')) state.sort = p.get('sort');
   state.shorts = p.get('short') !== '0';
+  state.list = [...new Set((p.get('list') ?? '').split(','))].filter(id => db.byId.has(id));
+  state.buyOn = new Set((p.get('bon') ?? '').split(',').filter(Boolean));
+  state.buyOff = new Set((p.get('boff') ?? '').split(',').filter(Boolean));
   state.q = p.get('q') ?? '';
 }
 
@@ -617,11 +781,49 @@ function bind() {
     render();
   });
 
-  $('#cards').addEventListener('click', e => {
-    if (e.target.id !== 'more-cards') return;
-    ui.limit += SITE.pageSize;
-    renderResults();
+  $('#cards').addEventListener('click', async e => {
+    const t = e.target;
+    if (t.id === 'more-cards') { ui.limit += SITE.pageSize; renderResults(); return; }
+    const add = t.closest('[data-list]');
+    if (add) {
+      const id = add.dataset.list;
+      const on = !state.list.includes(id);
+      state.list = on ? [...state.list, id] : state.list.filter(x => x !== id);
+      // 開いている詳細やスクロール位置を崩さないよう、そのカードのボタンだけ差し替える
+      add.outerHTML = on
+        ? `<button class="addlist on" data-list="${esc(id)}">✓ 買い物リストに入れた</button>`
+        : `<button class="addlist" data-list="${esc(id)}">＋ 買い物リスト</button>`;
+      $('#list-count').textContent = state.list.length ? `（${state.list.length}）` : '';
+      save();
+      toast(on ? `買い物リストに追加しました（${state.list.length}件）` : '買い物リストから外しました');
+      return;
+    }
+    const un = t.closest('[data-unlist]');
+    if (un) { state.list = state.list.filter(x => x !== un.dataset.unlist); render(); return; }
+    if (t.id === 'clear-list') {
+      if (!confirm('買い物リストを空にしますか？')) return;
+      state.list = []; state.buyOn.clear(); state.buyOff.clear(); render(); return;
+    }
+    if (t.id === 'copy-list') {
+      try { await navigator.clipboard.writeText(listText()); toast('買い物リストをコピーしました'); }
+      catch { toast('コピーできませんでした'); }
+    }
   });
+  $('#cards').addEventListener('change', e => {
+    const b = e.target.dataset.buy;
+    if (!b) return;
+    const it = shoppingItems().find(x => x.base === b);
+    const def = it.kind === 'main' && !it.owned;
+    if (def) e.target.checked ? state.buyOff.delete(b) : state.buyOff.add(b);
+    else e.target.checked ? state.buyOn.add(b) : state.buyOn.delete(b);
+    renderList(); save();
+  });
+  $('#cards').addEventListener('toggle', e => {
+    if (e.target.matches?.('.shop-sub')) {
+      const seas = e.target.querySelector('summary').textContent.startsWith('調味料');
+      ui[seas ? 'shopSeas' : 'shopOpt'] = e.target.open;
+    }
+  }, true);
 
   $('#share').addEventListener('click', async () => {
     try {
