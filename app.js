@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20261022-0811';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20261022-1050';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ページごとの設定。全動画版（all/index.html）は window.SITE で上書きする
 const SITE = Object.assign({
@@ -93,6 +93,7 @@ async function load() {
   }
 
   if (SITE.hideEmpty) recipes = recipes.filter(r => r.ingredients.length);
+  recipes = recipes.filter(r => !r.dup);   // 本編と材料が同じショートなどは本編だけ出す
   db.recipes = recipes.map(r => {
     const rows = [];
     const seen = new Set();
