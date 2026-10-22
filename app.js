@@ -1,6 +1,6 @@
 'use strict';
 
-const BUILD = '20261022-1850';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
+const BUILD = '20261022-2254';   // release.sh が書き換える。データ取得のキャッシュ避けと版表示に使う
 
 // ページごとの設定。全動画版（all/index.html）は window.SITE で上書きする
 const SITE = Object.assign({
@@ -16,7 +16,19 @@ const SITE = Object.assign({
 // ============================================================
 
 // 誰でも常に持っているもの。不足にも具材パネルにも出さない
-const ALWAYS_AVAILABLE = new Set(['水', 'お湯', '熱湯', '冷水', 'ぬるま湯', 'パスタの茹で汁', '茹で汁']);
+const ALWAYS_AVAILABLE = new Set(['水', 'お湯', '熱湯', '冷水', 'ぬるま湯', 'パスタの茹で汁', '茹で汁', 'ゆで汁', '氷']);
+
+// マスタに無い具材の分類を名前から推す（具材パネルの置き場所と、調味料として数えるかに使う）
+const GUESS = [
+  ['seasoning', '', /茹で汁|ゆで汁|煮汁|つけ汁|吸いもの|吸い物|Cook ?Do|酢|醤油|しょうゆ|(?<!甘|梅)酒(?!盗)|塩(?!辛|鮭|昆布)|胡椒|コショウ|ペッパー|(?<!鶏)油(?!揚)|ソース|たれ|タレ|ケチャップ|マヨ|ごま|ゴマ|だし|出汁|スープ|粉(?!チーズ)|シロップ|みりん|味噌|みそ|ルー|スパイス|シナモン|花椒|唐辛子|からし|わさび|ハーブ|タイム|ドレッシング|ほりにし|いしる|鶏油|イースト|ぽん酢|ポン酢|調味|の素|つゆ|エキス|ペースト|ジャム|はちみつ|蜂蜜|砂糖|糖/],
+  ['ingredient', 'carb', /麺|うどん|そば|蕎麦|パスタ|スパゲ|ラーメン|らーめん|ご飯|(?<!ス)ライス|(?<!フライ)パン|餅|ビーフン|ペンネ|マカロニ|焼そば|焼きそば|米/],
+  ['ingredient', 'protein', /肉|豚|鶏|牛|ハラミ|カルビ|タン$|ロース|ベーコン|ハム|ウインナー|ウィンナー|ソーセージ|魚|鯛|アジ|イワシ|サバ|鯖|鮭|サーモン|マグロ|カツオ|鰹(?!節)|ブリ|エビ|えび|海老|イカ|タコ|貝|アサリ|しじみ|牡蠣|ホタテ|うなぎ|カニ|蟹|たらこ|明太|ネギトロ|刺身|卵|たまご|玉子/],
+  ['ingredient', 'protein_s', /豆腐|厚揚|がんも|油揚|納豆|大豆|豆乳/],
+  ['ingredient', 'veggies', /野菜|菜|ねぎ|ネギ|玉ねぎ|キャベツ|レタス|トマト|きゅうり|ナス|なす|じゃが|芋|いも|イモ|にんじん|人参|大根|ごぼう|れんこん|レンコン|蓮根|ゴーヤ|セロリ|パプリカ|ピーマン|ししとう|かいわれ|みょうが|オクラ|アスパラ|ブロッコリー|カリフラワー|コーン|とうもろこし|もやし|豆苗|きのこ|キノコ|茸|しめじ|えのき|まいたけ|舞茸|エリンギ|マッシュルーム|しいたけ|椎茸|なめこ|アボカド|かぼちゃ|ズッキーニ|絹さや|枝豆|ハーブ|ミント|パクチー|大葉|しそ|レモン|ゆず|柚子|すだち|カボス|ライム|バナナ|りんご|リンゴ|キウイ|いちご|梨|桃|みかん/],
+];
+// 「サッポロ一番塩らーめん」「至高の味噌ラーメン」のような麺の商品は、名前に塩や味噌があっても主食
+const guessType = name => /ラーメン|らーめん|麺|うどん|そば|蕎麦|焼そば|焼きそば|パスタ|スパゲ/.test(name) && !/スープ|つゆ|タレ|たれ|ソース|の素|粉|汁/.test(name)
+  ? ['ingredient', 'carb'] : (GUESS.find(([, , re]) => re.test(name)) ?? ['ingredient', '']).slice(0, 2);
 
 // 「Aがあれば作れる」もの（別物なので synonyms.json の表記統一には入れない）
 // 同じ物の別表記は data/synonyms.json の notationVariants に置く
@@ -37,48 +49,119 @@ const CATEGORIES = [
 
 const LS_KEY = 'recipe-db-state-v1' + SITE.key;
 
-// 料理の区分（主食・主菜・副菜・汁物・スイーツ）。料理名（【】や「」の中）を先に見て、
-// 当たらなければタイトル全体、それでも無ければ材料で決める
+// 料理の区分。料理名（【】や「」の中）を先に見て、決まらなければ材料で決める。
+// 「ステーキ」「唐揚げ」「無限」は野菜にも肉にも付くので、語ではなく主な材料（肉・魚の量）で分ける
 const COURSES = [
   { id: 'main', label: '主食', note: 'ご飯・麺・パン' },
-  { id: 'dish', label: '主菜', note: '肉・魚のおかず' },
-  { id: 'side', label: '副菜', note: '野菜・卵・豆腐' },
+  { id: 'dish', label: '主菜', note: '肉・魚・豆腐のおかず' },
+  { id: 'side', label: '副菜', note: '野菜・卵の小鉢、サラダ、漬物' },
   { id: 'soup', label: '汁物', note: 'スープ・鍋' },
   { id: 'sweet', label: 'スイーツ', note: 'おやつ・飲み物' },
+  { id: 'sauce', label: 'タレ', note: 'タレ・ソース・ふりかけ' },
+  { id: 'multi', label: '複数品', note: '献立・まとめ回など、何品かまとめて作る回' },
 ];
 const COURSE_LABEL = Object.fromEntries(COURSES.map(c => [c.id, c.label]));
 const COURSE_RE = {
-  sweet: /プリン|ケーキ|アイス(?!バイン)|クッキー|チョコ|ゼリー|ドーナツ|タルト|パフェ|スイーツ|大福|(?<![肉鶏豚魚])(団子|だんご)|お汁粉|汁粉|フレンチトースト|わらび餅|ブラウニー|マフィン|シャーベット|ジャム|スコーン|杏仁|ティラミス|シュークリーム|おやつ|デザート|お菓子|あんこ|ぜんざい|おしるこ|クレープ|マシュマロ|キャラメル|カステラ|ラスク|スムージー|シェイク|カクテル|ラテ|レモネード|ドリンク|梅酒|チューハイ|酎ハイ|ミルクティー|ホットケーキ|パンケーキ|モンブラン|チーズケーキ|かき氷|プディング|ムース|ババロア|羊羹|ようかん|きなこ餅|焼き芋|大学芋|スイートポテト/,
-  main: /丼|どんぶり|チャーハン|炒飯|焼き?飯|ピラフ|オムライス|カレー(?!粉|炒め|風味|味|風|唐揚げ|鍋|煮|揚げ|焼き(?!カレー))|リゾット|雑炊|おじや|粥|おにぎり|寿司|ずし|炊き込み|混ぜご飯|まぜご飯|卵かけご飯|TKG|ライス|ドリア|パエリア|ビビンバ|ガパオ|ロコモコ|ハヤシ|茶漬け|天津飯|肉飯|麺(?!つゆ)|うどん|そば(?!粉)|ソバ|蕎麦|そうめん|素麺|ソーメン|ラーメン|らーめん|パスタ|スパゲ(?!ティサラダ)|ペペロンチーノ|カルボナーラ|ナポリタン|ボロネーゼ|アラビアータ|ミートソース|ペペたま|焼きそば|焼そば|冷麺|ちゃんぽん|担々|フォー|ビーフン|マカロニ(?!サラダ)|グラタン|ペンネ|ラザニア|トースト|サンド|ピザ|(?<!フライ|ワン)パン(?!チ|ダ|ケ|粉)|バーガー|ホットドッグ|お好み焼き|たこ焼き|もんじゃ|キンパ|オートミール|サッポロ一番|マルちゃん|チキンラーメン|カップ麺|ちらし|おむすび|ジャージャー|油そば|まぜそば|つけ麺|和そば|ニョッキ/,
-  soup: /スープ(?!パスタ|カレー)|(?<!肉|果|煮|出)汁(?!なし|無し|だく|気)|ポタージュ|(?<![回土])鍋(?!一つ|ひとつ|1つ)|シチュー|ポトフ|ミネストローネ|チゲ|おでん|参鶏湯|サムゲタン|ボルシチ|チャウダー|けんちん|トムヤム|ブイヤベース|すいとん|雑煮|豚汁|味噌汁|みそ汁|ガンボ|クッパ|サンラータン|酸辣湯/,
-  side: /サラダ|ポテサラ|和え|マカロニサラダ|スパサラ|ナムル|おひたし|お浸し|浸し|浅漬け|漬物|お漬け物|ピクルス|マリネ|きんぴら|酢の物|冷奴|冷やっこ|やっこ|なます|副菜|箸休め|ご飯のおとも|ご飯のお供|ごはんのおとも|ふりかけ|佃煮|常備菜|卵焼き|玉子焼き|だし巻き|茶碗蒸し|白和え|塩昆布キャベツ|煮びたし|焼きなす|焼き茄子|揚げ出し|オイル漬け|ディップ|ナス炒め|もやし炒め|キャベツ炒め|ピーマン炒め|おから|ポテト|フライドポテト|ジャーマンポテト|無限(?!に|大)/,
-  dish: /ステーキ|唐揚|から揚げ|からあげ|カツ(?!オ)|とんかつ|ハンバーグ|照り焼き|照焼|生姜焼き|しょうが焼き|餃子|ギョーザ|シューマイ|焼売|春巻|天ぷら|とり天|フライ(?!パン)|ナゲット|角煮|チャーシュー|ローストビーフ|ローストチキン|チキン|竜田|南蛮|ソテー|ムニエル|麻婆|マーボー|回鍋肉|ホイコーロー|酢豚|青椒肉絲|チンジャオ|エビチリ|肉じゃが|すき焼き|しゃぶ|焼肉|焼き肉|焼き鳥|焼鳥|つくね|ミートボール|肉団子|ロールキャベツ|煮付け|煮つけ|塩焼き|蒲焼|かば焼き|ピカタ|ポークチャップ|トンテキ|よだれ鶏|油淋鶏|ユーリンチー|棒棒鶏|バンバンジー|サムギョプサル|プルコギ|タッカルビ|ヤンニョム|シュクメルリ|シュリンプ|コロッケ|メンチ|肉巻き|豚キムチ|チャンプルー|手羽|鶏むね|鶏胸|むね肉|胸肉|もも肉|豚バラ|豚こま|ひき肉|挽き肉|ひき肉|鶏肉|豚肉|牛肉|刺身|サーモン|鮭|サバ|鯖|ブリ|エビ|海老|イカ|タコ|ささみ|砂肝|レバー|もつ|ホルモン|ハム|ソーセージ|ウインナー|ベーコン/,
+  sweet: /プリン|ケーキ|アイス(?!バイン)|クッキー|チョコ|ゼリー|ドーナツ|タルト|パフェ|スイーツ|大福|(?<![肉鶏豚魚])(団子|だんご)|お汁粉|汁粉|わらび餅|ブラウニー|マフィン|シャーベット|ジャム|スコーン|杏仁|ティラミス|シュークリーム|おやつ|デザート|お菓子|あんこ|ぜんざい|おしるこ|クレープ|マシュマロ|キャラメル|カステラ|ラスク|スムージー|シェイク|カクテル|ラテ|レモネード|ドリンク|ラッシー|梅酒|チューハイ|酎ハイ|ミルクティー|ホットケーキ|パンケーキ|モンブラン|かき氷|プディング|ムース|ババロア|羊羹|ようかん|きなこ餅|焼き芋|大学芋|スイートポテト|メロンパン|テリーヌ/,
+  // 料理名の末尾がこれなら、料理ではなくタレ類
+  sauce: /(タレ|ダレ|だれ|ドレッシング|ソース|ふりかけ|ディップ|マヨネーズ|タルタル|ラー油|ペースト)$/,
+  // 麺の締めがあっても鍋・汁物を優先する語
+  soupFirst: /(?<![回土])鍋(?!一つ|ひとつ|1つ|焼き)|水炊き|芋煮|マーラータン|麻辣湯|雑煮|おでん|シチュー|豚汁|味噌汁|みそ汁|ポタージュ|スンドゥブ|チゲ|ポトフ/,
+  // 主食そのものを表す語（料理名にあれば材料を見ずに主食）
+  main: /丼|どんぶり|チャーハン|炒飯|焼き?飯|[鶏肉豚牛鯛鮭鯖釜]飯|(?<!つまみ)めし|メシ|飯(?=$|[、。！!？?\s」】）)])|弁当|恵方巻|巻き寿司|手巻き|かゆ|ピラフ|オムライス|カレー(?!粉|炒め|風味|味|唐揚げ|鍋|煮|揚げ|焼き(?!カレー))|リゾット|雑炊|おじや|粥|おにぎり|おむすび|寿司|ずし|炊き込み|ご飯|ごはん|ライス(?!ペーパー)|パエリア|ビビンバ|ガパオ|ロコモコ|ハヤシ|茶漬け|お茶づけ|麺(?!つゆ)|うどん|そば(?!粉)|ソバ|蕎麦|そうめん|素麺|ソーメン|にゅうめん|ラーメン|らーめん|パスタ|スパゲ(?!ティサラダ)|焼きそば|焼そば|冷麺|冷やし中華|ちゃんぽん|フォー|ビーフン|マカロニ(?!サラダ)|ペンネ|トースト|サンド|(?<!フライ|ワン)パン(?!チ|ダ|ケ|粉|プキン)|バーガー|ホットドッグ|お好み焼き|たこ焼き|もんじゃ|キャベツ焼き|キンパ|オートミール|サッポロ一番|チキンラーメン|カップ麺|ちらし|ジャージャー|油そば|まぜそば|つけ麺|ジャンバラヤ|ニョッキ|きしめん|トッポギ/,
+  // 主食のこともおかずのこともある語。材料にご飯・麺・パンがあるときだけ主食
+  mainIfCarb: /ピザ|グラタン|ドリア|ラザニア|ペペロンチーノ|カルボナーラ|ナポリタン|ボロネーゼ|アラビアータ|ミートソース|ペペたま|フレンチトースト|担々|餅/,
+  soup: /スープ(?!パスタ|カレー|春雨|餃子)|(?<!肉|果|煮|出|け|お)汁(?!なし|無し|だく|気|粉)|ミネストローネ|参鶏湯|サムゲタン|ボルシチ|チャウダー|けんちん|トムヤム|ブイヤベース|すいとん|ガンボ|クッパ|サンラータン|酸辣湯|吸い物|お吸い|肉吸い|梅流し|湯豆腐/,
+  // 副菜らしい料理。ただし肉・魚が多ければ主菜
+  side: /サラダ|ポテサラ|和え|ナムル|おひたし|お浸し|浸し|漬け|漬物|ピクルス|マリネ|きんぴら|酢の物|冷奴|冷やっこ|やっこ|なます|副菜|箸休め|おとも|お供|佃煮|常備菜|卵焼き|玉子焼き|だし巻き|茶碗蒸し|揚げ出し|ナス炒め|もやし炒め|キャベツ炒め|ピーマン炒め|おから|卯の花|ポテト|味玉|煮卵|切り干し|ラタトゥイユ|カルパッチョ/,
+  // 肉・魚が主役と決まっている料理。材料に肉・魚・豆腐・卵が無ければ副菜にする
+  dish: /生姜焼き|しょうが焼き|ハンバーグ|餃子|ギョーザ|シューマイ|シュウマイ|焼売|春巻|とんかつ|トンカツ|チキン|角煮|チャーシュー|焼豚|ローストビーフ|ナゲット|竜田|南蛮|ムニエル|麻婆|マーボー|回鍋肉|ホイコーロー|酢豚|青椒肉絲|チンジャオ|エビチリ|肉じゃが|すき焼き|しゃぶ|焼肉|焼き肉|焼き鳥|焼鳥|つくね|ミートボール|肉団子|ロールキャベツ|煮付け|煮つけ|塩焼き|蒲焼|かば焼き|ピカタ|ポークチャップ|トンテキ|よだれ鶏|油淋鶏|棒棒鶏|バンバンジー|サムギョプサル|プルコギ|タッカルビ|ヤンニョム|シュクメルリ|シュリンプ|コロッケ|メンチ|肉巻き|豚キムチ|チャンプルー|刺身|カツ(?!オ)/,
 };
-const COURSE_ORDER = ['sweet', 'main', 'soup', 'side', 'dish'];
-const CARB_RE = /麺|うどん|そば|パスタ|スパゲ|ラーメン|ご飯|^米$|パン(?!粉)|バゲット|餅|マカロニ|オートミール|ライス|フォー|ビーフン|ペンネ/;
-const MEAT_RE = /肉|豚|鶏|牛|リブ|魚|鯛|アジ|イワシ|貝|アサリ|牡蠣|ホタテ|うなぎ|鴨|ラム|明太|たらこ/;
+// タイトル本文の言い回しで主食などに引っぱられないよう、先に消しておく
+const TITLE_NOISE = /(ラーメン|パスタ|そば|寿司|カレー|丼|うどん|鰻|焼肉)屋(さん)?|(主食|ご飯|米)(いらず|不要|要らず|専用)|(麺|めん|そうめん|鍋)つゆ|米騒動|(ご飯|ごはん|白米|米|飯|酒|ビール|そうめん)(が|も|なら|に|を)?[^、。！!？?\s【】「」]{0,8}?(進|すす|止|消|食|いけ|イケ|行け|合う|かけ|泥棒|無限|[0-9０-９一二三四五十百]+(杯|合|膳))/g;
+const OTOMO = /(ご飯|ごはん|白米|米)の(おとも|お供|友)/g;
+// 「ラーメン風スープ」「レバニラ風厚揚げ」の「〜風」は料理の種類ではない
+const STYLE = /[^\s、。！!？?【】「」『』]*?風(?![味呂邪])/g;
+const CARB_RE = /ヌードル|一平ちゃん|UFO|ペヤング|どん兵衛|きつね|たぬき|うまかっちゃん|サッポロ一番|麺|うどん|そば|パスタ|スパゲ|ラーメン|ご飯|ごはん|^米$|^生米$|パン(?!粉)|バゲット|餅|マカロニ|オートミール|ライス|フォー|ビーフン|ペンネ|ピザ生地|トルティーヤ/;
+const MEAT_RE = /タン|ハラミ|カルビ|サーロイン|ビーフ|ポーク|ロース|切り落とし|燻製屋|シャウエッセン|マンドゥ|餃子|シーフード|刺身|サバ缶|鯖缶|コンビーフ|サラダチキン|肉|豚|鶏(?!ガラ)|牛(?!乳)|リブ|魚|鯛|アジ|イワシ|貝|アサリ|牡蠣|ホタテ|うなぎ|鴨|ラム|明太|たらこ|サバ|鯖|鮭|ブリ|マグロ|エビ|海老|イカ|タコ|カニ(?!カマ)|ホルモン|もつ|レバー|砂肝|手羽|ささみ/;
+const SMALL_MEAT = /ベーコン|ハム|ウインナー|ソーセージ|しらす|生ハム|ちくわ|かまぼこ|カニカマ|鰹|明太|たらこ/;
 const SWEET_ING_RE = /砂糖|ハチミツ|練乳|生クリーム|チョコ|ホットケーキミックス|グラニュー糖|ココア|アイス|ゼラチン/;
 const SAVORY_RE = /醤油|味噌|塩|コンソメ|鶏ガラ|ほんだし|白だし|胡椒|にんにく|ソース|ポン酢|オイスター|マヨ|ケチャップ|めんつゆ|チーズ/;
 
-function courseOf(title, rows) {
+// 分量からおおよその重さ（g）。量が書かれていない・少々などは 0
+function weightOf(row) {
+  const a = row.amount || '';
+  if (!a || /少々|適量|お好み|適宜|少量/.test(a) && !/\d/.test(a)) return 0;
+  const g = a.match(/(\d+(?:\.\d+)?)(?:〜\d+)?\s*g/);
+  if (g) return +g[1];
+  const n = a.match(/(\d+)(?:\/(\d+))?(?:と(\d+)\/(\d+))?\s*(合|丁|枚|パック|本|切れ|尾|杯|膳|玉|袋|束|個|缶|羽|匹|房)/);
+  if (!n) return 30;
+  const q = (+n[1] / (n[2] ? +n[2] : 1)) + (n[3] ? +n[3] / +n[4] : 0);
+  const per = SMALL_MEAT.test(row.base) && /枚|本|個/.test(n[5]) ? 20 : { 合: 330, 丁: 300, 枚: 200, パック: 200, 杯: 150, 膳: 150 }[n[5]] ?? 100;
+  return q * per;
+}
+function features(rows) {
+  let carb = 0, rice = 0, meat = 0, tofu = 0, eggs = 0;
+  const isMeat = x => (x.item.type2 === 'protein' && !/卵/.test(x.base)) || x.item.type2 === 'protein_f'
+    || ((!x.item.inMaster || !x.item.type2) && MEAT_RE.test(x.base) && !/牛乳|鶏ガラ|ガラ|ブイヨン|だし|エキス|脂/.test(x.base));
+  for (const x of rows) {
+    if (x.option || x.item.isSeas) continue;
+    const w = weightOf(x), t = x.item.type2;
+    if ((t === 'carb' || CARB_RE.test(x.base)) && !/春雨|マロニー|パン粉|麺つゆ|めんつゆ/.test(x.base)) {
+      // ご飯・米は茶碗1杯（約150g）に満たなければ添え物とみなす
+      // 炊いたご飯は添えることが多いが、生の米から作るなら炊き込み・粥などの主食
+      if (/ご飯|ごはん/.test(x.base)) { if (w >= 120) rice += w; } else if (w > 0) carb += w;
+    } else if (isMeat(x)) {
+      // 「牛肉 お好みで」のように量が無い肉は、主役として数える
+      meat += w || (/少々|少し/.test(x.amount) ? 0 : 150);
+    } else if (t === 'protein_s') tofu += w;
+    else if (/^(卵|たまご|玉子)$/.test(x.base)) eggs += +(x.amount.match(/\d+/)?.[0] ?? { 一: 1, 二: 2, 三: 3, 四: 4 }[x.amount.match(/[一二三四]/)?.[0]] ?? 1);
+  }
+  return { carb, rice, meat, tofu, eggs };
+}
+
+// 何品かを1つの材料欄にまとめた回（献立・食べ比べ・コラボで作りまくる回など）。
+// 材料からの推定（ご飯と麺が両方ある等）は外れが半分あったので使わない
+const MULTI_TITLE = /献立|全[0-9０-９]+(レシピ|品)|[0-9０-９二三四五六七八九十]+(選|品)(?!種)|作りまくり|作りまくる|食べ比べ|王決定戦|選手権(?!で)|Cook ?Do|冷蔵庫を?(漁|あさ)|【[^】]*[＆&][^】]*】/;
+const isMulti = title => MULTI_TITLE.test(title.replace(/#\S+/g, ''));
+
+function courseOf(title, rows, multi) {
+  if (multi) return 'multi';
+  const f = features(rows);
+  const clean = s => s.replace(OTOMO, 'おとも').replace(TITLE_NOISE, ' ').replace(STYLE, '');
   const names = [...title.matchAll(/【([^】]+)】|「([^」]+)」|『([^』]+)』/g)]
-    .map(m => m[1] || m[2] || m[3]).filter(t => !/^※|コラボ|PR|PRESENTS|ガチです|材料|Supreme|[A-Za-z ]{8,}/.test(t));
-  const plain = title.replace(/#\S+/g, ' ');
-  const tags = (title.match(/#\S+/g) || []).filter(t => !/リュウジ|料理|レシピ|shorts|簡単|節約|時短|PR/i.test(t)).join(' ');
-  for (const text of [names.join(' '), plain, tags]) {
+    .map(m => m[1] || m[2] || m[3])
+    .filter(t => !/^※|コラボ|PR|PRESENTS|ガチです|材料|Supreme|[A-Za-z ]{8,}|再生|万|突破/.test(t))
+    .map(clean);
+  const plain = clean(title.replace(/#\S+/g, ' ').replace(/【[^】]*】|「[^」]*」|『[^』]*』/g, ' '));
+  const tags = (title.match(/#\S+/g) || []).filter(t => !/リュウジ|料理|レシピ|shorts|簡単|節約|時短|PR|バズ/i.test(t)).join(' ');
+  const hasCarb = f.carb + f.rice > 0 || !rows.length;
+  const protein = f.meat + f.tofu + f.eggs * 50;
+  const sideOrDish = () => f.meat >= 150 ? 'dish' : 'side';
+  const meaty = f.meat >= 100 || f.eggs >= 3;
+
+  for (const [text, isName] of [[names.join(' '), true], [plain, false], [tags, false]]) {
     if (!text.trim()) continue;
-    for (const c of COURSE_ORDER) if (COURSE_RE[c].test(text)) return c;
+    if (isName && names.some(n => COURSE_RE.sauce.test(n.trim()))) return 'sauce';
+    if (COURSE_RE.sweet.test(text)) return /フレンチトースト/.test(text) && !SWEET_ING_RE.test(rows.map(x => x.base).join(' ')) ? 'main' : 'sweet';
+    if (COURSE_RE.soupFirst.test(text)) return 'soup';
+    // 主食の語はそのまま信じる（「ラーメン屋」「ご飯が進む」などの言い回しは先に消してある）
+    if (COURSE_RE.main.test(text)) return 'main';
+    if (COURSE_RE.mainIfCarb.test(text) && hasCarb) return 'main';
+    if (COURSE_RE.soup.test(text)) return 'soup';
+    if (COURSE_RE.side.test(text)) return sideOrDish();
+    if (COURSE_RE.dish.test(text)) return protein > 0 || !rows.length ? 'dish' : 'side';
   }
   // 材料で決める
-  const main = rows.filter(x => !x.option && !x.item.isSeas);
-  // 「ご飯 お好みで」のように添えるだけの主食は数えない
-  if (main.some(x => (x.item.type2 === 'carb' || CARB_RE.test(x.base)) && !/適量|お好み|適宜/.test(x.amount))) return 'main';
-  if (main.some(x => x.item.inMaster
-    ? (x.item.type2 === 'protein' && !/卵/.test(x.base)) || x.item.type2 === 'protein_f'
-    : MEAT_RE.test(x.base))) return 'dish';
+  if (!rows.length) return null;
+  // 麺・パンがあれば主食。ご飯は「唐揚げにご飯200g」のように添えることが多いので、肉が少ないときだけ主食
+  if (f.carb >= 100) return 'main';
+  if (f.rice && !meaty) return 'main';
+  if (meaty) return 'dish';
   const all = rows.map(x => x.base).join(' ');
   if (SWEET_ING_RE.test(all) && !SAVORY_RE.test(all)) return 'sweet';
-  return rows.length ? 'side' : null;
+  if (f.carb > 0 || f.rice > 0) return 'main';
+  return 'side';
 }
 
 // ============================================================
@@ -107,19 +190,38 @@ const state = {
   list: [],           // 買い物リストに入れたレシピの videoId（入れた順）
   buyOn: new Set(),   // 買い物リストで、既定ではチェックしない具材を手でチェックしたもの
   buyOff: new Set(),  // 既定ではチェックする具材を手で外したもの
+  fav: false,         // ★を付けたレシピだけ
+  hideSeen: false,    // 見たレシピを隠す
+  few: false,         // 具材（調味料を除く）3品以下だけ
+  series: '',         // タイトルのキーワード（至高・無限・レンジ など）
 };
 
-const ui = { limit: SITE.pageSize, level: {}, filter: '', advOpen: false, collapsed: { seas: true }, seasTags: false, units: new Map() };  // 調味料は最初は畳む
+// お気に入りと「見た」は、この端末だけの印。URLには載せない
+const mine = { fav: loadSet('fav'), seen: loadSet('seen') };
+function loadSet(name) {
+  try { return new Set(JSON.parse(localStorage.getItem(`${LS_KEY}-${name}`) || '[]')); } catch { return new Set(); }
+}
+function saveSet(name) {
+  try { localStorage.setItem(`${LS_KEY}-${name}`, JSON.stringify([...mine[name]])); } catch { /* private mode 等 */ }
+}
+// 絞り込みに出すタイトルのキーワード（シリーズ名と調理器具）。件数の少ないものは出さない
+const SERIES = ['至高', '究極', '無限', '虚無', '悪魔', 'やけくそ', '貧乏人', '痩せ', '鬼コスパ', '酒泥棒', '米泥棒', '合法', 'シン・', 'レンジ', '炊飯器', 'フライパン', 'トースター'];
+
+const ui = { saved: {}, lastRes: [], filtersOpen: false, limit: SITE.pageSize, level: {}, filter: '', advOpen: false, collapsed: { seas: true }, seasTags: false, units: new Map() };  // 調味料は最初は畳む
 
 async function load() {
   const get = p => fetch(p).then(r => {
     if (!r.ok) throw new Error(`${p}: ${r.status}`);
     return r.json();
   });
-  let [recipes, ingredients, synonyms] = await Promise.all([
+  // courses.json は目視で確かめた区分（videoId -> 区分）。views.json は再生数。どちらも無くても動く
+  let [recipes, ingredients, synonyms, courses, views] = await Promise.all([
     get(`${SITE.data}recipes.json?v=${BUILD}`), get(`${SITE.data}ingredients.json?v=${BUILD}`),
     get(`${SITE.data}synonyms.json?v=${BUILD}`),
+    get(`${SITE.data}courses.json?v=${BUILD}`).catch(() => ({})),
+    get(`${SITE.data}views.json?v=${BUILD}`).catch(() => ({})),
   ]);
+  db.hasViews = Object.keys(views).length > 0;
 
   const variants = synonyms.notationVariants;
   const norm = n => {
@@ -150,9 +252,8 @@ async function load() {
       if (ALWAYS_AVAILABLE.has(base)) continue;
       let item = db.items.get(base);
       if (!item) {
-        item = {
-          name: base, type1: 'ingredient', type2: '', rarity: 3, inMaster: false, uses: 0,
-        };
+        const [type1, type2] = guessType(base);
+        item = { name: base, type1, type2, rarity: 3, inMaster: false, uses: 0 };
         db.items.set(base, item);
       }
       if (!seen.has(base)) { item.uses++; seen.add(base); }
@@ -160,24 +261,28 @@ async function load() {
     }
     return {
       id: r.videoId, title: r.title, url: r.url, published: r.published,
-      thumbnail: r.thumbnail, hasRecipe: r.hasRecipe, isShort: !!r.isShort, multi: !!r.multi, rows,
+      thumbnail: r.thumbnail, hasRecipe: r.hasRecipe, isShort: !!r.isShort, rows, views: views[r.videoId] ?? -1,
+      checked: courses[r.videoId],
+      multi: !!r.multi || courses[r.videoId] === 'multi' || isMulti(r.title),
       bases: new Set(rows.map(x => x.base)),
     };
   });
   // 区分と具材数（調味料を除く）は、マスタの分類が決まってから数える
   for (const it of db.items.values()) it.isSeas = it.type1 === 'seasoning';
   db.recipes.forEach(r => {
-    r.course = courseOf(r.title, r.rows);
+    r.course = r.checked ?? courseOf(r.title, r.rows, r.multi);
     r.nIng = r.rows.filter(x => !x.item.isSeas).length;
   });
 
   db.byId = new Map(db.recipes.map(r => [r.id, r]));
+  db.series = SERIES.map(w => [w, db.recipes.filter(r => r.title.includes(w)).length]).filter(([, n]) => n >= 8);
   db.groupUses = new Map([...db.groups].map(([id, g]) =>
     [id, db.recipes.filter(r => g.members.some(m => r.bases.has(m))).length]));
 
   for (const it of db.items.values()) {
     it.isSeas = it.type1 === 'seasoning';
-    it.cat = it.inMaster ? CATEGORIES.find(c => c.id !== 'extra' && c.test(it)).id : 'extra';
+    // マスタに無い具材も、名前から分類できたものは同じカテゴリに並べる（分からないものだけ「マスタ外」）
+    it.cat = it.inMaster || it.type2 || it.type1 === 'seasoning' ? CATEGORIES.find(c => c.id !== 'extra' && c.test(it)).id : 'extra';
   }
 }
 
@@ -196,7 +301,12 @@ const keyOf = base => { const g = activeGroup(base); return g ? 'G:' + g : base;
 const haveKeys = () => new Set([...state.sel].map(keyOf));
 const recipeKeys = r => new Set([...r.bases].map(keyOf));
 const titleHit = r => (!SITE.shorts || state.shorts || !r.isShort) &&
-  (!state.q || r.title.toLowerCase().includes(state.q.toLowerCase()));
+  (!state.q || r.title.toLowerCase().includes(state.q.toLowerCase())) &&
+  (!state.fav || mine.fav.has(r.id)) && (!state.hideSeen || !mine.seen.has(r.id)) &&
+  (!state.few || r.nIng <= 3) && (!state.series || r.title.includes(state.series));
+// 並び順に共通のもの
+const byNew = (a, b) => b.r.published.localeCompare(a.r.published);
+const byViews = (a, b) => b.r.views - a.r.views || byNew(a, b);
 
 // Case 2: 選んだ具材を全部使うレシピ
 function searchResults() {
@@ -208,9 +318,10 @@ function searchResults() {
     if ([...have].every(k => keys.has(k))) out.push({ r, have, keys });
   }
   const cmp = {
-    count: (a, b) => a.r.nIng - b.r.nIng,
-    countDesc: (a, b) => b.r.nIng - a.r.nIng,
-  }[state.sort];
+    new: byNew, popular: byViews,
+    count: (a, b) => a.r.nIng - b.r.nIng || byNew(a, b),
+    countDesc: (a, b) => b.r.nIng - a.r.nIng || byNew(a, b),
+  }[state.sort] ?? byNew;
   return out.sort(cmp);
 }
 
@@ -238,13 +349,17 @@ function makeResults() {
       missKeys.add(k);
       missing.push(row);
     }
-    out.push({ r, have, missing, missKeys });
+    // 選んだ食材（調味料を除く）をいくつ使うか
+    const use = new Set(r.rows.filter(x => !x.item.isSeas && have.has(keyOf(x.base))).map(x => keyOf(x.base))).size;
+    out.push({ r, have, missing, missKeys, use });
   }
   const cmp = {
-    missing: (a, b) => a.missing.length - b.missing.length || a.r.nIng - b.r.nIng,
+    missing: (a, b) => a.missing.length - b.missing.length || b.use - a.use || a.r.nIng - b.r.nIng,
+    use: (a, b) => b.use - a.use || a.missing.length - b.missing.length || a.r.nIng - b.r.nIng,
     count: (a, b) => a.r.nIng - b.r.nIng || a.missing.length - b.missing.length,
     countDesc: (a, b) => b.r.nIng - a.r.nIng || a.missing.length - b.missing.length,
-  }[state.sort];
+    new: byNew, popular: byViews,
+  }[state.sort] ?? ((a, b) => a.missing.length - b.missing.length);
   return out.sort(cmp);
 }
 
@@ -270,9 +385,11 @@ function render() {
 
 function renderControls() {
   if (state.mode === 'list') return;   // 買い物リストでは並び順などを使わない
+  const pop = db.hasViews ? [['popular', '人気順（再生数）']] : [];
+  const cnt = [['count', '具材が少ない順'], ['countDesc', '具材が多い順']];
   const sortOpts = state.mode === 'make'
-    ? [['missing', '不足が少ない順'], ['count', '具材数が少ない順'], ['countDesc', '具材数が多い順']]
-    : [['count', '具材数が少ない順'], ['countDesc', '具材数が多い順']];
+    ? [['missing', '不足が少ない順'], ['use', '選んだ食材を多く使う順'], ['new', '新しい順'], ...pop, ...cnt]
+    : [['new', '新しい順'], ...pop, ...cnt];
   if (!sortOpts.some(([v]) => v === state.sort)) state.sort = sortOpts[0][0];
 
   const makeCtl = state.mode === 'make' ? `
@@ -294,12 +411,28 @@ function renderControls() {
   $('#q').value = state.q;
   $('#ctl-dyn').innerHTML = `
     ${makeCtl}
-    ${SITE.shorts ? `<label title="1分前後の縦型動画も結果に含めます">
-      <input type="checkbox" id="shorts" ${state.shorts ? 'checked' : ''}> ショートも含める</label>` : ''}
     <label>並び順
       <select id="sort">${sortOpts.map(([v, l]) => `<option value="${v}" ${state.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
     </label>
-    ${state.sel.size ? `<button id="clear" class="ghost small">選択をクリア（${state.sel.size}品）</button>` : ''}`;
+    ${state.sel.size ? `<button id="clear" class="ghost small">選択をクリア（${state.sel.size}品）</button>` : ''}
+    ${filtersHtml()}`;
+}
+
+// 「絞り込み」の中身。お気に入り・見た・具材数・キーワード・ショート
+function filtersHtml() {
+  const on = [state.fav, state.hideSeen, state.few, !!state.series, SITE.shorts && !state.shorts].filter(Boolean).length;
+  const chk = (id, v, label, title = '') => `<label${title ? ` title="${title}"` : ''}><input type="checkbox" id="${id}" ${v ? 'checked' : ''}> ${label}</label>`;
+  return `<details class="filters" id="filters" ${ui.filtersOpen || on ? 'open' : ''}>
+    <summary>絞り込み${on ? ` <span class="count">${on}</span>` : ''}</summary>
+    <div class="filters-body">
+      ${chk('f-fav', state.fav, `★お気に入りだけ（${mine.fav.size}）`)}
+      ${chk('f-seen', state.hideSeen, `見たものを隠す（${mine.seen.size}）`, 'YouTubeを開いたレシピに「見た」の印が付きます')}
+      ${chk('f-few', state.few, '具材3品以下', '調味料を除いた具材の数')}
+      ${SITE.shorts ? chk('shorts', state.shorts, 'ショートも含める', '1分前後の縦型動画も結果に含めます') : ''}
+      <label>キーワード <select id="f-series"><option value="">指定なし</option>${db.series.map(([w, n]) =>
+        `<option value="${esc(w)}" ${state.series === w ? 'selected' : ''}>${esc(w)}（${n}）</option>`).join('')}</select></label>
+    </div>
+  </details>`;
 }
 
 function renderSelected() {
@@ -467,9 +600,20 @@ function renderCourses(res) {
   ui.courseCounts = n;
   const btn = (id, label) => `<button data-course="${id}" class="${state.course === id ? 'on' : ''}${n[id] ? '' : ' zero'}"
     aria-pressed="${state.course === id}">${label}<span class="n">${n[id] || 0}</span></button>`;
-  $('#courses').innerHTML = btn('all', 'すべて') + COURSES.map(c => btn(c.id, c.label)).join('');
-  $('#courses .on')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  const bar = $('#courses');
+  bar.innerHTML = btn('all', 'すべて') + COURSES
+    .filter(c => n[c.id] || state.course === c.id || !['sauce', 'multi'].includes(c.id)).map(c => btn(c.id, c.label)).join('');
+  // 選んでいる区分のボタンが見えるよう、ボタン列だけを横に動かす（ページは動かさない）
+  const on = bar.querySelector('.on');
+  if (on && (on.offsetLeft < bar.scrollLeft || on.offsetLeft + on.offsetWidth > bar.scrollLeft + bar.clientWidth))
+    bar.scrollLeft = on.offsetLeft - (bar.clientWidth - on.offsetWidth) / 2;
   return res;
+}
+// 料理名や「絞り込み」で0件になっているときの案内
+function filterHint() {
+  const f = [state.q && `料理名「${esc(state.q)}」`, state.fav && '★お気に入りだけ', state.hideSeen && '見たものを隠す',
+    state.few && '具材3品以下', state.series && `キーワード「${esc(state.series)}」`].filter(Boolean);
+  return f.length ? `絞り込み（${f.join('・')}）を外してみてください。` : '';
 }
 const byCourse = res => state.course === 'all' ? res : res.filter(x => x.r.course === state.course);
 const courseEmpty = () => `<div class="empty">「${COURSE_LABEL[state.course]}」に当てはまるレシピはありません。<br>
@@ -495,6 +639,11 @@ function setCourse(id, dir = 0) {
   if (bar.getBoundingClientRect().top < 0 || cards.getBoundingClientRect().top < 0) bar.scrollIntoView({ block: 'start' });
 }
 
+const favButton = id => mine.fav.has(id)
+  ? `<button class="fav on" data-fav="${esc(id)}" aria-pressed="true" title="お気に入りから外す">★</button>`
+  : `<button class="fav" data-fav="${esc(id)}" aria-pressed="false" title="お気に入りに入れる">☆</button>`;
+const fmtViews = v => v >= 1e8 ? `${+(v / 1e8).toFixed(1)}億` : v >= 1e4 ? `${Math.round(v / 1e4)}万` : String(v);
+
 function card(res) {
   const { r } = res;
   let status = '';
@@ -505,21 +654,22 @@ function card(res) {
           `${esc(x.name)}${x.amount ? `<span class="amt"> ${esc(x.amount)}</span>` : ''}`).join('・')} で作れる</div>`;
   }
   const seasCount = r.rows.filter(x => !x.option && x.item.isSeas).length;
-  return `<article class="card">
+  return `<article class="card" data-id="${esc(r.id)}">
     <a class="thumb" href="${esc(r.url)}" target="_blank" rel="noopener"><img src="${esc(r.thumbnail)}" alt="" loading="lazy"></a>
     <div>
       <h2><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a></h2>
-      <div class="meta"><span>${r.published}</span>${r.course ? `<span class="course-tag">${COURSE_LABEL[r.course]}</span>` : ''}<span>具材 ${r.nIng}品</span>
+      <div class="meta">${mine.seen.has(r.id) ? '<span class="seen">見た</span>' : ''}<span>${r.published}</span>${r.views >= 0 ? `<span>${fmtViews(r.views)}回再生</span>` : ''}${r.course ? `<span class="course-tag">${COURSE_LABEL[r.course]}</span>` : ''}<span>具材 ${r.nIng}品</span>
         ${r.hasRecipe ? '' : '<span class="badge">説明文にレシピなし（手作業補完）</span>'}
         ${r.multi ? '<span class="badge">複数の料理の材料をまとめたもの</span>' : ''}</div>
       ${status}
       ${r.rows.length ? `<div class="ings">${ingChips(res)}${seasCount ? `<span class="ing">＋調味料 ${seasCount}品</span>` : ''}</div>
       <details><summary>材料と分量をすべて見る</summary>${fullTable(res)}</details>` : '<div class="meta">材料データなし（動画でご確認ください）</div>'}
       <div class="card-actions">
-        <a class="yt" href="${esc(r.url)}" target="_blank" rel="noopener">▶ YouTubeで作り方を見る</a>
+        <a class="yt" href="${esc(r.url)}" target="_blank" rel="noopener">▶ <span class="tl">YouTubeで</span>作り方を見る</a>
         ${r.rows.length ? (state.list.includes(r.id)
           ? `<button class="addlist on" data-list="${esc(r.id)}">✓ 買い物リストに入れた</button>`
           : `<button class="addlist" data-list="${esc(r.id)}">＋ 買い物リスト</button>`) : ''}
+        ${favButton(r.id)}
       </div>
     </div>
   </article>`;
@@ -672,9 +822,12 @@ function listText() {
 
 // 件数が多いと描画が重いので、SITE.pageSize 件ずつ出す
 function cardList(res) {
-  const rest = res.length - ui.limit;
-  return res.slice(0, ui.limit).map(card).join('') + (rest > 0
-    ? `<button id="more-cards" class="more-cards">▼ もっと見る（残り ${rest} 件）</button>` : '');
+  ui.lastRes = res;
+  return res.slice(0, ui.limit).map(card).join('') + moreButton();
+}
+function moreButton() {
+  const rest = ui.lastRes.length - ui.limit;
+  return rest > 0 ? `<button id="more-cards" class="more-cards">▼ もっと見る（残り ${rest} 件）</button>` : '';
 }
 
 function renderResults() {
@@ -695,8 +848,8 @@ function renderResults() {
     summary.innerHTML = `<strong>${res.length}</strong> 件 <span class="bucket">${cond}</span>`;
     cards.innerHTML = res.length
       ? cardList(res)
-      : state.course !== 'all' ? courseEmpty()
-      : `<div class="empty">この組み合わせのレシピはありません。<br>具材を外すか、同義グループをONにしてみてください。</div>`;
+      : state.course !== 'all' && ui.courseCounts.all ? courseEmpty()
+      : `<div class="empty">この条件のレシピはありません。<br>${filterHint() || '具材を外すか、同義グループをONにしてみてください。'}</div>`;
     return;
   }
 
@@ -726,9 +879,10 @@ function renderResults() {
     <span class="bucket">表示中 <strong>${res.length}</strong> 件</span>${bar}`;
   cards.innerHTML = res.length
     ? cardList(res)
-    : state.course !== 'all' && all.length ? courseEmpty()
+    // 区分の中に不足が多いレシピならあるときは「不足を許す」、区分に1件も無いときは区分の案内を出す
+    : state.course !== 'all' && !all.length && found.length ? courseEmpty()
     : `<div class="empty">不足${state.maxMissing}つ以内で作れるレシピはありません。<br>
-        「不足を許す」を増やすか、${state.must.size ? '★を減らして' : '具材を追加して'}みてください。</div>`;
+        ${filterHint() || `「不足を許す」を増やすか、${state.must.size ? '★を減らして' : '具材を追加して'}みてください。`}</div>`;
 }
 
 // ============================================================
@@ -749,9 +903,15 @@ function toParams() {
   }
   p.set('sort', state.sort);
   if (SITE.shorts && !state.shorts) p.set('short', '0');
-  if (state.list.length) p.set('list', state.list.join(','));
-  if (state.buyOn.size) p.set('bon', [...state.buyOn].join(','));
-  if (state.buyOff.size) p.set('boff', [...state.buyOff].join(','));
+  if (state.mode === 'list' && state.list.length) {
+    p.set('list', state.list.join(','));
+    if (state.buyOn.size) p.set('bon', [...state.buyOn].join(','));
+    if (state.buyOff.size) p.set('boff', [...state.buyOff].join(','));
+  }
+  if (state.fav) p.set('fav', '1');
+  if (state.hideSeen) p.set('hs', '1');
+  if (state.few) p.set('few', '1');
+  if (state.series) p.set('kw', state.series);
   if (state.q) p.set('q', state.q);
   if (state.course !== 'all') p.set('c', state.course);
   return p;
@@ -768,9 +928,10 @@ function fromParams(p) {
   state.ignoreSeas = p.get('seas') !== '1';
   if (p.has('sort')) state.sort = p.get('sort');
   state.shorts = p.get('short') !== '0';
-  state.list = [...new Set((p.get('list') ?? '').split(','))].filter(id => db.byId.has(id));
-  state.buyOn = new Set((p.get('bon') ?? '').split(',').filter(Boolean));
-  state.buyOff = new Set((p.get('boff') ?? '').split(',').filter(Boolean));
+  state.fav = p.get('fav') === '1';
+  state.hideSeen = p.get('hs') === '1';
+  state.few = p.get('few') === '1';
+  state.series = SERIES.includes(p.get('kw')) ? p.get('kw') : '';
   state.q = p.get('q') ?? '';
   state.course = COURSE_LABEL[p.get('c')] ? p.get('c') : 'all';
 }
@@ -778,16 +939,40 @@ function fromParams(p) {
 function save() {
   const p = toParams();
   history.replaceState(null, '', '?' + p.toString());
-  try { localStorage.setItem(LS_KEY, p.toString()); } catch { /* private mode 等 */ }
+  try {
+    localStorage.setItem(LS_KEY, p.toString());
+    localStorage.setItem(`${LS_KEY}-list`, JSON.stringify({ list: state.list, bon: [...state.buyOn], boff: [...state.buyOff] }));
+  } catch { /* private mode 等 */ }
 }
 
 function restore() {
-  const url = new URLSearchParams(location.search);
-  if ([...url.keys()].length) return fromParams(url);
+  // 買い物リストはこの端末に保存したものを使う
   try {
-    const s = localStorage.getItem(LS_KEY);
-    if (s) fromParams(new URLSearchParams(s));
+    const l = JSON.parse(localStorage.getItem(`${LS_KEY}-list`) || 'null');
+    if (l) setList(l.list, l.bon, l.boff);
   } catch { /* ignore */ }
+  const url = new URLSearchParams(location.search);
+  if ([...url.keys()].length) {
+    fromParams(url);
+    // 共有された買い物リストのURL。自分のリストがあれば、置き換えてよいか聞く
+    if (url.has('list')) {
+      const shared = url.get('list').split(',');
+      const same = shared.join() === state.list.join();
+      if (!same && (!state.list.length || confirm('共有された買い物リストで、いまの買い物リストを置き換えますか？')))
+        setList(shared, (url.get('bon') ?? '').split(','), (url.get('boff') ?? '').split(','));
+    }
+    return;
+  }
+  try {
+    const s = new URLSearchParams(localStorage.getItem(LS_KEY) || '');
+    s.delete('c');   // 区分の絞り込みは、開き直したら「すべて」から
+    fromParams(s);
+  } catch { /* ignore */ }
+}
+function setList(list = [], bon = [], boff = []) {
+  state.list = [...new Set(list)].filter(id => db.byId.has(id));
+  state.buyOn = new Set(bon.filter(Boolean));
+  state.buyOff = new Set(boff.filter(Boolean));
 }
 
 // ============================================================
@@ -805,7 +990,15 @@ function toast(msg) {
 function bind() {
   $('.tabs').addEventListener('click', e => {
     const b = e.target.closest('button[data-mode]');
-    if (b) { state.mode = b.dataset.mode; render(); }
+    if (!b || b.dataset.mode === state.mode) return;
+    ui.saved[state.mode] = { limit: ui.limit, y: scrollY };
+    state.mode = b.dataset.mode;
+    render();
+    const back = ui.saved[state.mode];
+    if (back) {
+      if (back.limit > ui.limit) { ui.limit = back.limit; renderResults(); }
+      scrollTo(0, back.y);
+    }
   });
   $('#syn').addEventListener('change', e => { state.syn = e.target.checked; render(); });
 
@@ -847,6 +1040,10 @@ function bind() {
   // 区分のボタン列はヘッダーのすぐ下に貼り付ける（ヘッダーの高さはスマホで折り返すと変わる）
   const topbar = $('.topbar');
   new ResizeObserver(() => document.documentElement.style.setProperty('--topbar-h', topbar.offsetHeight + 'px')).observe(topbar);
+  // 長い一覧を下まで見たときの「上へ戻る」
+  const top = $('#to-top');
+  addEventListener('scroll', () => { top.hidden = scrollY < 1200; }, { passive: true });
+  top.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
   $('#courses').addEventListener('click', e => {
     const b = e.target.closest('[data-course]');
     if (b && b.dataset.course !== state.course) setCourse(b.dataset.course);
@@ -886,17 +1083,47 @@ function bind() {
     const b = e.target.closest('#max button');
     if (b) { state.maxMissing = Number(b.dataset.n); render(); }
   });
+  $('#controls').addEventListener('toggle', e => { if (e.target.id === 'filters') ui.filtersOpen = e.target.open; }, true);
   $('#controls').addEventListener('change', e => {
     if (e.target.id === 'sort') state.sort = e.target.value;
     else if (e.target.id === 'ignore-seas') state.ignoreSeas = e.target.checked;
     else if (e.target.id === 'shorts') state.shorts = e.target.checked;
+    else if (e.target.id === 'f-fav') state.fav = e.target.checked;
+    else if (e.target.id === 'f-seen') state.hideSeen = e.target.checked;
+    else if (e.target.id === 'f-few') state.few = e.target.checked;
+    else if (e.target.id === 'f-series') state.series = e.target.value;
     else return;
     render();
   });
 
   $('#cards').addEventListener('click', async e => {
     const t = e.target;
-    if (t.id === 'more-cards') { ui.limit += SITE.pageSize; renderResults(); return; }
+    // 開いている「材料と分量」を閉じないよう、描き直さずに後ろへ足す
+    if (t.id === 'more-cards') {
+      const from = ui.limit;
+      ui.limit += SITE.pageSize;
+      t.insertAdjacentHTML('beforebegin', ui.lastRes.slice(from, ui.limit).map(card).join(''));
+      t.outerHTML = moreButton();
+      return;
+    }
+    const fav = t.closest('[data-fav]');
+    if (fav) {
+      const id = fav.dataset.fav;
+      const on = !mine.fav.has(id);
+      on ? mine.fav.add(id) : mine.fav.delete(id);
+      saveSet('fav');
+      fav.outerHTML = favButton(id);
+      toast(on ? 'お気に入りに入れました（絞り込み →「★お気に入りだけ」で一覧）' : 'お気に入りから外しました');
+      return;
+    }
+    // YouTube を開いたら「見た」の印を付ける（リンクの動作はそのまま）
+    const yt = t.closest('a[href]');
+    const art = t.closest('article[data-id]');
+    if (yt && art && !mine.seen.has(art.dataset.id)) {
+      mine.seen.add(art.dataset.id);
+      saveSet('seen');
+      art.querySelector('.meta')?.insertAdjacentHTML('afterbegin', '<span class="seen">見た</span>');
+    }
     const add = t.closest('[data-list]');
     if (add) {
       const id = add.dataset.list;
