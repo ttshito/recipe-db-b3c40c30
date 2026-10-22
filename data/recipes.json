@@ -18,7 +18,7 @@
    },
    {
     "name": "コチュジャン",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -27,7 +27,7 @@
    },
    {
     "name": "白だし",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -236,7 +236,7 @@
   "ingredients": [
    {
     "name": "キャベツ",
-    "amount": "160～180g",
+    "amount": "160〜180g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -490,7 +490,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "適量(鍋底から1㎝)",
+    "amount": "適量（鍋底から1cm）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -799,7 +799,7 @@
    },
    {
     "name": "ベーコン",
-    "amount": "適量（40-50ｇほど）",
+    "amount": "適量（約40〜50g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -835,7 +835,7 @@
    },
    {
     "name": "塩",
-    "amount": "ふたつまみほど",
+    "amount": "2つまみほど",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -1026,7 +1026,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1/4本(30g)",
+    "amount": "1/4本（30g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -1263,7 +1263,7 @@
   "ingredients": [
    {
     "name": "冷凍牡蠣",
-    "amount": "250g(解凍後200g)",
+    "amount": "250g（解凍後200g）",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -1426,7 +1426,7 @@
    },
    {
     "name": "創味シャンタン",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -1462,7 +1462,7 @@
    },
    {
     "name": "酒",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -1835,7 +1835,7 @@
    },
    {
     "name": "めんたいこ",
-    "amount": "30～35g",
+    "amount": "30〜35g",
     "option": false,
     "type1": "ingredient",
     "type2": "pickles",
@@ -1935,7 +1935,7 @@
    },
    {
     "name": "鰹節",
-    "amount": "2g + 適量",
+    "amount": "2g+適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -2544,7 +2544,7 @@
    },
    {
     "name": "砂糖",
-    "amount": "大さじ2半",
+    "amount": "大さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -2553,7 +2553,7 @@
    },
    {
     "name": "コチュジャン",
-    "amount": "大さじ2半",
+    "amount": "大さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -2562,7 +2562,7 @@
    },
    {
     "name": "醤油",
-    "amount": "大さじ2半",
+    "amount": "大さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -2571,7 +2571,7 @@
    },
    {
     "name": "酒",
-    "amount": "大さじ2半",
+    "amount": "大さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -2580,7 +2580,7 @@
    },
    {
     "name": "白だし",
-    "amount": "大さじ2半",
+    "amount": "大さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -2643,7 +2643,7 @@
    },
    {
     "name": "豆腐",
-    "amount": "半丁175g",
+    "amount": "1/2丁（175g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein_s",
@@ -2661,7 +2661,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1本100g",
+    "amount": "1本（100g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -2670,7 +2670,7 @@
    },
    {
     "name": "ニラ",
-    "amount": "1束100g",
+    "amount": "1束（100g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -2697,7 +2697,7 @@
    },
    {
     "name": "ピザチーズ",
-    "amount": "40～50g",
+    "amount": "40〜50g",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -3015,7 +3015,7 @@
    },
    {
     "name": "塩",
-    "amount": "小さじ1/2＋適量",
+    "amount": "小さじ1/2+適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -3078,7 +3078,7 @@
    },
    {
     "name": "生姜",
-    "amount": "半片",
+    "amount": "1/2片",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -3260,7 +3260,7 @@
    },
    {
     "name": "お湯",
-    "amount": "85㏄",
+    "amount": "85cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -3342,7 +3342,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -3451,7 +3451,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "少量",
+    "amount": "少々",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -3659,7 +3659,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ（仕上げ用追加あり）",
+    "amount": "1つまみ（仕上げ用追加あり）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -4068,7 +4068,7 @@
    },
    {
     "name": "水",
-    "amount": "600ml",
+    "amount": "600cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -4440,7 +4440,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "50g+30～40g",
+    "amount": "50gと30〜40g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -4485,7 +4485,7 @@
    },
    {
     "name": "水",
-    "amount": "200cc+50cc+大さじ2",
+    "amount": "200ccと50ccと大さじ2",
     "option": false,
     "type1": "",
     "type2": "",
@@ -4494,7 +4494,7 @@
    },
    {
     "name": "ごま油",
-    "amount": "大さじ1+大さじ1/2",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -4503,7 +4503,7 @@
    },
    {
     "name": "味の素",
-    "amount": "小さじ2/3+2振り",
+    "amount": "小さじ2/3と2振り",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -4521,7 +4521,7 @@
    },
    {
     "name": "片栗粉",
-    "amount": "小さじ2+小さじ1/3",
+    "amount": "小さじ2と小さじ1/3",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -4675,7 +4675,7 @@
    },
    {
     "name": "ご飯",
-    "amount": "100～120g",
+    "amount": "100〜120g",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -4721,7 +4721,7 @@
   "ingredients": [
    {
     "name": "マッシュルーム",
-    "amount": "1/2パック(75g程度)",
+    "amount": "1/2パック（75g程度）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -4893,7 +4893,7 @@
    },
    {
     "name": "にんにく",
-    "amount": "半片",
+    "amount": "1/2片",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -4975,7 +4975,7 @@
    },
    {
     "name": "天かす",
-    "amount": "ひとつかみ",
+    "amount": "1つかみ",
     "option": false,
     "type1": "seasoning",
     "type2": "topping",
@@ -5184,7 +5184,7 @@
   "ingredients": [
    {
     "name": "トマト",
-    "amount": "3個（450gほど）",
+    "amount": "3個（約450g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -5293,7 +5293,7 @@
    },
    {
     "name": "塩",
-    "amount": "ふたつまみ（下茹で用）",
+    "amount": "2つまみ（下茹で用）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -5410,7 +5410,7 @@
    },
    {
     "name": "鷹の爪",
-    "amount": "お好み",
+    "amount": "お好みで",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -5683,7 +5683,7 @@
    },
    {
     "name": "ニラ",
-    "amount": "1/4束(25g)",
+    "amount": "1/4束（25g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -5855,7 +5855,7 @@
    },
    {
     "name": "白だし",
-    "amount": "大さじ1と半分",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -6082,7 +6082,7 @@
    },
    {
     "name": "冷凍うどん",
-    "amount": "一個",
+    "amount": "1個",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -6091,7 +6091,7 @@
    },
    {
     "name": "卵",
-    "amount": "一個",
+    "amount": "1個",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -6392,7 +6392,7 @@
   "ingredients": [
    {
     "name": "舞茸",
-    "amount": "1パック(100g)",
+    "amount": "1パック（100g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -6655,7 +6655,7 @@
    },
    {
     "name": "ごま油",
-    "amount": "小さじ1と1まわし",
+    "amount": "小さじ1と1回し",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -6746,7 +6746,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -6773,7 +6773,7 @@
    },
    {
     "name": "酒",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -6782,7 +6782,7 @@
    },
    {
     "name": "みりん",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -6791,7 +6791,7 @@
    },
    {
     "name": "砂糖",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -6809,7 +6809,7 @@
    },
    {
     "name": "いりごま",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -6919,7 +6919,7 @@
   "ingredients": [
    {
     "name": "味噌",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -6946,7 +6946,7 @@
    },
    {
     "name": "お湯",
-    "amount": "150ml",
+    "amount": "150cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -7182,7 +7182,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -7672,7 +7672,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみほど",
+    "amount": "1つまみほど",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -7781,7 +7781,7 @@
   "ingredients": [
    {
     "name": "トマト",
-    "amount": "2個(300g)",
+    "amount": "2個（300g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -8389,7 +8389,7 @@
   "ingredients": [
    {
     "name": "じゃがいも",
-    "amount": "2個（250gほど）",
+    "amount": "2個（約250g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -8416,7 +8416,7 @@
    },
    {
     "name": "玉ねぎ",
-    "amount": "1/4個（60gほど）",
+    "amount": "1/4個（約60g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -8461,7 +8461,7 @@
    },
    {
     "name": "酒",
-    "amount": "大さじ1と半分",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -8634,7 +8634,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "50～60g",
+    "amount": "50〜60g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -8887,7 +8887,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -8942,7 +8942,7 @@
   "ingredients": [
    {
     "name": "長ネギ",
-    "amount": "お好みの量",
+    "amount": "お好みで",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -9014,7 +9014,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "5～6cm",
+    "amount": "5〜6cm",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -9132,7 +9132,7 @@
    },
    {
     "name": "ホワイトペッパー",
-    "amount": "2～3振り",
+    "amount": "2〜3振り",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -9487,7 +9487,7 @@
   "ingredients": [
    {
     "name": "めんたいこ",
-    "amount": "1パック（80gほど）",
+    "amount": "1パック（約80g）",
     "option": false,
     "type1": "ingredient",
     "type2": "pickles",
@@ -9496,7 +9496,7 @@
    },
    {
     "name": "おろしにんにく",
-    "amount": "半片",
+    "amount": "1/2片",
     "option": true,
     "type1": "seasoning",
     "type2": "",
@@ -9550,7 +9550,7 @@
    },
    {
     "name": "白だし",
-    "amount": "大さじ1（15㏄）",
+    "amount": "大さじ1（15cc）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -9559,7 +9559,7 @@
    },
    {
     "name": "お湯",
-    "amount": "85㏄",
+    "amount": "85cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -9677,7 +9677,7 @@
    },
    {
     "name": "水",
-    "amount": "1リットル",
+    "amount": "1L",
     "option": false,
     "type1": "",
     "type2": "",
@@ -9741,7 +9741,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1/3本(35g)",
+    "amount": "1/3本（35g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -9813,7 +9813,7 @@
    },
    {
     "name": "水",
-    "amount": "150㏄",
+    "amount": "150cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -9822,7 +9822,7 @@
    },
    {
     "name": "創味シャンタン",
-    "amount": "小さじ半分",
+    "amount": "小さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -9904,7 +9904,7 @@
    },
    {
     "name": "酒",
-    "amount": "小さじ1+大さじ1",
+    "amount": "小さじ1と大さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -9922,7 +9922,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "大さじ1.5+小さじ2",
+    "amount": "大さじ1.5と小さじ2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -9995,7 +9995,7 @@
    },
    {
     "name": "アボカド",
-    "amount": "1.5個(210g)",
+    "amount": "1.5個（210g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -10058,7 +10058,7 @@
    },
    {
     "name": "塩",
-    "amount": "3つまみ+20g強(茹で用)",
+    "amount": "3つまみと20g強（茹で用）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -10067,7 +10067,7 @@
    },
    {
     "name": "お湯",
-    "amount": "1.5リットル",
+    "amount": "1.5L",
     "option": false,
     "type1": "",
     "type2": "",
@@ -10094,7 +10094,7 @@
    },
    {
     "name": "わさび",
-    "amount": "5～6cm",
+    "amount": "5〜6cm",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -10167,7 +10167,7 @@
    },
    {
     "name": "玉ねぎ",
-    "amount": "1/2個（100gほど）",
+    "amount": "1/2個（約100g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -10339,7 +10339,7 @@
    },
    {
     "name": "マヨネーズ",
-    "amount": "25g(大さじ1と1／2)",
+    "amount": "25g（大さじ1と1/2）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -10357,7 +10357,7 @@
    },
    {
     "name": "牛乳",
-    "amount": "大さじ1／2",
+    "amount": "大さじ1/2",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -10366,7 +10366,7 @@
    },
    {
     "name": "砂糖",
-    "amount": "小さじ1／3 + 小さじ1",
+    "amount": "小さじ1/3と小さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -10448,7 +10448,7 @@
   "ingredients": [
    {
     "name": "そうめん",
-    "amount": "2束100g",
+    "amount": "2束（100g）",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -10475,7 +10475,7 @@
    },
    {
     "name": "白だし",
-    "amount": "小さじ2と半分",
+    "amount": "小さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -10602,7 +10602,7 @@
    },
    {
     "name": "生姜",
-    "amount": "少し",
+    "amount": "少々",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -10720,7 +10720,7 @@
    },
    {
     "name": "ホワイトペッパー",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -10911,7 +10911,7 @@
    },
    {
     "name": "水",
-    "amount": "大さじ1半 + 380cc",
+    "amount": "大さじ1と1/2と380cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -10929,7 +10929,7 @@
    },
    {
     "name": "コンソメ",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -10938,7 +10938,7 @@
    },
    {
     "name": "塩",
-    "amount": "小さじ半分 + 2つまみ",
+    "amount": "小さじ半分と2つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -11283,7 +11283,7 @@
    },
    {
     "name": "酒",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -11292,7 +11292,7 @@
    },
    {
     "name": "生姜",
-    "amount": "15g（おろし5g＋微塵10g）",
+    "amount": "15g（おろし5g+微塵10g）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -11355,7 +11355,7 @@
    },
    {
     "name": "鷹の爪",
-    "amount": "1本分＋適量",
+    "amount": "1本分+適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -11872,7 +11872,7 @@
    },
    {
     "name": "水",
-    "amount": "250㏄",
+    "amount": "250cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -12045,7 +12045,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1/2本 70g",
+    "amount": "1/2本（70g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -12236,7 +12236,7 @@
   "ingredients": [
    {
     "name": "玉ねぎ",
-    "amount": "1個(200g)",
+    "amount": "1個（200g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -12381,7 +12381,7 @@
    },
    {
     "name": "薄力粉",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -12426,7 +12426,7 @@
    },
    {
     "name": "醤油",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -12435,7 +12435,7 @@
    },
    {
     "name": "砂糖",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -12645,7 +12645,7 @@
   "ingredients": [
    {
     "name": "生ハム",
-    "amount": "約40グラム",
+    "amount": "約40g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -12654,7 +12654,7 @@
    },
    {
     "name": "卵",
-    "amount": "一個",
+    "amount": "1個",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -12663,7 +12663,7 @@
    },
    {
     "name": "ご飯",
-    "amount": "約200グラム",
+    "amount": "約200g",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -12727,7 +12727,7 @@
    },
    {
     "name": "ナンプラー",
-    "amount": "大さじ1/2 + 小さじ1",
+    "amount": "大さじ1/2と小さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -12736,7 +12736,7 @@
    },
    {
     "name": "味の素",
-    "amount": "3振り + 4振り",
+    "amount": "3振りと4振り",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -12836,7 +12836,7 @@
    },
    {
     "name": "キャベツ",
-    "amount": "30～35g",
+    "amount": "30〜35g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -12872,7 +12872,7 @@
    },
    {
     "name": "中華味",
-    "amount": "大さじ1／2",
+    "amount": "大さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -12881,7 +12881,7 @@
    },
    {
     "name": "ナンプラー",
-    "amount": "小さじ1／2",
+    "amount": "小さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -12890,7 +12890,7 @@
    },
    {
     "name": "醤油",
-    "amount": "小さじ1／2",
+    "amount": "小さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -13153,7 +13153,7 @@
    },
    {
     "name": "醤油",
-    "amount": "小さじ2 + 大さじ1/2",
+    "amount": "小さじ2と大さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -13180,7 +13180,7 @@
    },
    {
     "name": "中華味",
-    "amount": "小さじ2と2/3 + 小さじ2と1/2",
+    "amount": "小さじ2と2/3と小さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -13189,7 +13189,7 @@
    },
    {
     "name": "水",
-    "amount": "400cc + 550cc + 大さじ1",
+    "amount": "400ccと550ccと大さじ1",
     "option": false,
     "type1": "",
     "type2": "",
@@ -13198,7 +13198,7 @@
    },
    {
     "name": "ニラ",
-    "amount": "100g + 100g",
+    "amount": "100gと100g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -13207,7 +13207,7 @@
    },
    {
     "name": "片栗粉",
-    "amount": "小さじ4 + 大さじ1/2",
+    "amount": "小さじ4と大さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -13860,7 +13860,7 @@
    },
    {
     "name": "玉ねぎ",
-    "amount": "250～280g",
+    "amount": "250〜280g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -13869,7 +13869,7 @@
    },
    {
     "name": "じゃがいも",
-    "amount": "2個(200g)",
+    "amount": "2個（200g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -14032,7 +14032,7 @@
   "ingredients": [
    {
     "name": "ニラ",
-    "amount": "1束（100gほど）",
+    "amount": "1束（約100g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -14050,7 +14050,7 @@
    },
    {
     "name": "白だし",
-    "amount": "小さじ1+大さじ1",
+    "amount": "小さじ1と大さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -14223,7 +14223,7 @@
    },
    {
     "name": "水",
-    "amount": "大さじ1＋120cc",
+    "amount": "大さじ1と120cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -14386,7 +14386,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "小さじ1半～小さじ2",
+    "amount": "小さじ1半~小さじ2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -14431,7 +14431,7 @@
    },
    {
     "name": "味の素",
-    "amount": "3ふり",
+    "amount": "3振り",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -14975,7 +14975,7 @@
    },
    {
     "name": "塩",
-    "amount": "ふたつまみ",
+    "amount": "2つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -15283,7 +15283,7 @@
    },
    {
     "name": "ピザチーズ",
-    "amount": "30～35g",
+    "amount": "30〜35g",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -15310,7 +15310,7 @@
    },
    {
     "name": "柚子胡椒",
-    "amount": "小さじ半分",
+    "amount": "小さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -15319,7 +15319,7 @@
    },
    {
     "name": "アジシオ",
-    "amount": "4～5振り",
+    "amount": "4〜5振り",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -15337,7 +15337,7 @@
    },
    {
     "name": "酢",
-    "amount": "大さじ半分",
+    "amount": "大さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -15636,7 +15636,7 @@
    },
    {
     "name": "豆腐",
-    "amount": "1丁(300g)",
+    "amount": "1丁（300g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein_s",
@@ -15872,7 +15872,7 @@
   "ingredients": [
    {
     "name": "サラダ油",
-    "amount": "9～10cm（あん用3cm+炒飯用6～7cm）",
+    "amount": "9〜10cm（あん用3cm+炒飯用6〜7cm）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -15917,7 +15917,7 @@
    },
    {
     "name": "酒",
-    "amount": "小さじ1+大さじ1",
+    "amount": "小さじ1と大さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -15926,7 +15926,7 @@
    },
    {
     "name": "鶏ガラスープ",
-    "amount": "小さじ2／3",
+    "amount": "小さじ2/3",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -15944,7 +15944,7 @@
    },
    {
     "name": "片栗粉",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -15980,7 +15980,7 @@
    },
    {
     "name": "塩",
-    "amount": "小さじ1／3",
+    "amount": "小さじ1/3",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -16098,7 +16098,7 @@
    },
    {
     "name": "砂糖",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -16407,7 +16407,7 @@
    },
    {
     "name": "塩",
-    "amount": "塩分濃度1%分（パスタ用）+1つまみ+少々",
+    "amount": "塩分濃度1%分（パスタ用）と1つまみ+少々",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -16561,7 +16561,7 @@
    },
    {
     "name": "味の素",
-    "amount": "適宜",
+    "amount": "適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -16879,7 +16879,7 @@
    },
    {
     "name": "片栗粉",
-    "amount": "小さじ1と1/2（漬け込み用）+ 適量（衣用）",
+    "amount": "小さじ1と1/2（漬け込み用）+適量（衣用）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -17587,7 +17587,7 @@
    },
    {
     "name": "創味シャンタン",
-    "amount": "小さじ1と半分",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -18014,7 +18014,7 @@
    },
    {
     "name": "豆板醤",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -18023,7 +18023,7 @@
    },
    {
     "name": "甜麺醤",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -18095,7 +18095,7 @@
    },
    {
     "name": "片栗粉",
-    "amount": "小さじ1半",
+    "amount": "小さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -18738,7 +18738,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1/3本(40g)",
+    "amount": "1/3本（40g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -18884,7 +18884,7 @@
    },
    {
     "name": "オリーブオイル",
-    "amount": "大さじ1 + 小さじ1",
+    "amount": "大さじ1と小さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -19047,7 +19047,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "鍋底から1㎝ほど",
+    "amount": "鍋底から1cmほど",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -19638,7 +19638,7 @@
   "ingredients": [
    {
     "name": "パスタ",
-    "amount": "100グラム",
+    "amount": "100g",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -19647,7 +19647,7 @@
    },
    {
     "name": "マッシュルーム",
-    "amount": "2個（50グラムほど）",
+    "amount": "2個（約50g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -19656,7 +19656,7 @@
    },
    {
     "name": "ウインナー",
-    "amount": "3本（50グラムほど）",
+    "amount": "3本（約50g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -19665,7 +19665,7 @@
    },
    {
     "name": "玉ねぎ",
-    "amount": "1/4個（50グラムほど）",
+    "amount": "1/4個（約50g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -19683,7 +19683,7 @@
    },
    {
     "name": "ケチャップ",
-    "amount": "大さじ4（60グラム）",
+    "amount": "大さじ4（60g）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -19692,7 +19692,7 @@
    },
    {
     "name": "バター",
-    "amount": "10グラム",
+    "amount": "10g",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -19865,7 +19865,7 @@
    },
    {
     "name": "玉ねぎ",
-    "amount": "1個(250g)",
+    "amount": "1個（250g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -19883,7 +19883,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -19983,7 +19983,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -20010,7 +20010,7 @@
    },
    {
     "name": "酒",
-    "amount": "少量",
+    "amount": "少々",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -20074,7 +20074,7 @@
    },
    {
     "name": "小松菜",
-    "amount": "270～300g",
+    "amount": "270〜300g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -20101,7 +20101,7 @@
    },
    {
     "name": "白だし",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -20256,7 +20256,7 @@
    },
    {
     "name": "豆腐",
-    "amount": "1丁(300g)",
+    "amount": "1丁（300g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein_s",
@@ -20419,7 +20419,7 @@
    },
    {
     "name": "塩",
-    "amount": "少々～適量",
+    "amount": "少々~適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -20582,7 +20582,7 @@
    },
    {
     "name": "春菊",
-    "amount": "適宜",
+    "amount": "適量",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -20591,7 +20591,7 @@
    },
    {
     "name": "小ねぎ",
-    "amount": "適宜",
+    "amount": "適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -21063,7 +21063,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -21454,7 +21454,7 @@
   "ingredients": [
    {
     "name": "鶏もも",
-    "amount": "1/2枚(160g)",
+    "amount": "1/2枚（160g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -21472,7 +21472,7 @@
    },
    {
     "name": "醤油",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -21590,7 +21590,7 @@
   "ingredients": [
    {
     "name": "トマト",
-    "amount": "2個(400g)",
+    "amount": "2個（400g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -21617,7 +21617,7 @@
    },
    {
     "name": "味噌",
-    "amount": "大さじ2半",
+    "amount": "大さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -21626,7 +21626,7 @@
    },
    {
     "name": "水",
-    "amount": "400～500cc",
+    "amount": "400〜500cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -21653,7 +21653,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "大さじ1+小さじ1",
+    "amount": "大さじ1と小さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -21762,7 +21762,7 @@
    },
    {
     "name": "水",
-    "amount": "450㏄",
+    "amount": "450cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -21998,7 +21998,7 @@
   "ingredients": [
    {
     "name": "鶏もも",
-    "amount": "320～350g",
+    "amount": "320〜350g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -22007,7 +22007,7 @@
    },
    {
     "name": "ニラ",
-    "amount": "1/2束(50g)",
+    "amount": "1/2束（50g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -22088,7 +22088,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -22215,7 +22215,7 @@
    },
    {
     "name": "塩",
-    "amount": "小さじ0.9＋最後に調整で適量",
+    "amount": "小さじ0.9+最後に調整で適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -22306,7 +22306,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1/2本(50g)",
+    "amount": "1/2本（50g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -22569,7 +22569,7 @@
    },
    {
     "name": "塩",
-    "amount": "小さじ1/3 + 1つまみ",
+    "amount": "小さじ1/3と1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -22651,7 +22651,7 @@
    },
    {
     "name": "ウインナー",
-    "amount": "3～5本",
+    "amount": "3〜5本",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -22697,7 +22697,7 @@
   "ingredients": [
    {
     "name": "豚こま",
-    "amount": "200～300g",
+    "amount": "200〜300g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -22706,7 +22706,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -22724,7 +22724,7 @@
    },
    {
     "name": "チンゲン菜",
-    "amount": "1～2束",
+    "amount": "1〜2束",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -22742,7 +22742,7 @@
    },
    {
     "name": "水",
-    "amount": "600㏄",
+    "amount": "600cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -22751,7 +22751,7 @@
    },
    {
     "name": "豆乳",
-    "amount": "200㏄",
+    "amount": "200cc",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -22996,7 +22996,7 @@
    },
    {
     "name": "ペコリーノ・ロマーノ",
-    "amount": "50g＋仕上げ用",
+    "amount": "50g+仕上げ用",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -23014,7 +23014,7 @@
    },
    {
     "name": "塩",
-    "amount": "1つまみ＋1%濃度（パスタ茹で用）＋0.7%濃度（パスタ茹で用）＋8g",
+    "amount": "1つまみと1%濃度（パスタ茹で用）と0.7%濃度（パスタ茹で用）と8g",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -23032,7 +23032,7 @@
    },
    {
     "name": "お湯",
-    "amount": "80cc＋パスタ茹で用",
+    "amount": "80cc+パスタ茹で用",
     "option": false,
     "type1": "",
     "type2": "",
@@ -23041,7 +23041,7 @@
    },
    {
     "name": "味の素",
-    "amount": "3ふり",
+    "amount": "3振り",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -23150,7 +23150,7 @@
    },
    {
     "name": "紅生姜",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -23196,7 +23196,7 @@
    },
    {
     "name": "輪切り唐辛子",
-    "amount": "2~4本分",
+    "amount": "2〜4本分",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -23296,7 +23296,7 @@
   "ingredients": [
    {
     "name": "豚バラ",
-    "amount": "600~700g",
+    "amount": "600〜700g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -23359,7 +23359,7 @@
    },
    {
     "name": "砂糖",
-    "amount": "大さじ3半",
+    "amount": "大さじ3と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -23559,7 +23559,7 @@
    },
    {
     "name": "オリーブオイル",
-    "amount": "大さじ2（大さじ1 + 仕上げ大さじ1/2）",
+    "amount": "大さじ2（大さじ1+仕上げ大さじ1/2）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -23614,7 +23614,7 @@
   "ingredients": [
    {
     "name": "ウインナー",
-    "amount": "1袋(90g)",
+    "amount": "1袋（90g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -23704,7 +23704,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "小さじ2～3",
+    "amount": "小さじ2〜3",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -23813,7 +23813,7 @@
    },
    {
     "name": "塩",
-    "amount": "1つまみ＋パスタ茹で用適量",
+    "amount": "1つまみ+パスタ茹で用適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -24085,7 +24085,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1/2本（60gほど）",
+    "amount": "1/2本（約60g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -24094,7 +24094,7 @@
    },
    {
     "name": "そうめん",
-    "amount": "2束100g",
+    "amount": "2束（100g）",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -24121,7 +24121,7 @@
    },
    {
     "name": "ごま油",
-    "amount": "大さじ1/2（肉を焼くとき）＋小さじ2（そうめん投入時）",
+    "amount": "大さじ1/2（肉を焼くとき）と小さじ2（そうめん投入時）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -24266,7 +24266,7 @@
    },
    {
     "name": "ケチャップ",
-    "amount": "大さじ3+小さじ2",
+    "amount": "大さじ3と小さじ2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -24339,7 +24339,7 @@
    },
    {
     "name": "玉ねぎ",
-    "amount": "1/2個(120g)",
+    "amount": "1/2個（120g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -24929,7 +24929,7 @@
    },
    {
     "name": "塩",
-    "amount": "小さじ1／2と適量",
+    "amount": "小さじ1/2と適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -24974,7 +24974,7 @@
    },
    {
     "name": "ラード",
-    "amount": "大さじ1と1／2",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -25093,7 +25093,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "30～40g",
+    "amount": "30〜40g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -25202,7 +25202,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -25574,7 +25574,7 @@
    },
    {
     "name": "味の素",
-    "amount": "6振り+2振り",
+    "amount": "6振りと2振り",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -25610,7 +25610,7 @@
    },
    {
     "name": "砂糖",
-    "amount": "小さじ1+1つまみ",
+    "amount": "小さじ1と1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -25809,7 +25809,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1/3本（30-40g）",
+    "amount": "1/3本（30〜40g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -25891,7 +25891,7 @@
    },
    {
     "name": "白だし",
-    "amount": "50㏄（大さじ3と小さじ1）",
+    "amount": "50cc（大さじ3と小さじ1）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -25955,7 +25955,7 @@
   "ingredients": [
    {
     "name": "キャベツ",
-    "amount": "160g + 140g",
+    "amount": "160gと140g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -25964,7 +25964,7 @@
    },
    {
     "name": "鶏もも",
-    "amount": "170g + 160～170g",
+    "amount": "170gと160〜170g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -25973,7 +25973,7 @@
    },
    {
     "name": "水",
-    "amount": "250cc + 180cc + 300cc",
+    "amount": "250ccと180ccと300cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -25991,7 +25991,7 @@
    },
    {
     "name": "鶏ガラスープ",
-    "amount": "小さじ2/3 + 小さじ1と1/3",
+    "amount": "小さじ2/3と小さじ1と1/3",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -26000,7 +26000,7 @@
    },
    {
     "name": "醤油",
-    "amount": "小さじ1/2 + 大さじ1と小さじ1",
+    "amount": "小さじ1/2と大さじ1と小さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -26009,7 +26009,7 @@
    },
    {
     "name": "塩",
-    "amount": "1つまみ + 2つまみ",
+    "amount": "1つまみと2つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -26045,7 +26045,7 @@
    },
    {
     "name": "ウインナー",
-    "amount": "お好みの量",
+    "amount": "お好みで",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -26081,7 +26081,7 @@
    },
    {
     "name": "ほんだし",
-    "amount": "小さじ2/3 + 小さじ1/2",
+    "amount": "小さじ2/3と小さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -26425,7 +26425,7 @@
    },
    {
     "name": "塩",
-    "amount": "1つまみ＋適量",
+    "amount": "1つまみ+適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -26443,7 +26443,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "小さじ2＋大さじ1",
+    "amount": "小さじ2と大さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -26705,7 +26705,7 @@
    },
    {
     "name": "片栗粉",
-    "amount": "小さじ半分",
+    "amount": "小さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -27032,7 +27032,7 @@
    },
    {
     "name": "醤油",
-    "amount": "小さじ半分＋大さじ1",
+    "amount": "小さじ半分と大さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -27132,7 +27132,7 @@
    },
    {
     "name": "木綿豆腐",
-    "amount": "1丁(300g)",
+    "amount": "1丁（300g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein_s",
@@ -27367,7 +27367,7 @@
    },
    {
     "name": "きゅうり",
-    "amount": "1本（100~120g）",
+    "amount": "1本（100〜120g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -27984,7 +27984,7 @@
    },
    {
     "name": "酒",
-    "amount": "100cc + 大さじ1",
+    "amount": "100ccと大さじ1",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -27993,7 +27993,7 @@
    },
    {
     "name": "創味シャンタン",
-    "amount": "小さじ1.5 + 小さじ1/3",
+    "amount": "小さじ1.5と小さじ1/3",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -28020,7 +28020,7 @@
    },
    {
     "name": "生姜",
-    "amount": "5g + 15g",
+    "amount": "5gと15g",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -28093,7 +28093,7 @@
   "ingredients": [
    {
     "name": "豚バラ",
-    "amount": "170～180g",
+    "amount": "170〜180g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -28102,7 +28102,7 @@
    },
    {
     "name": "鶏もも",
-    "amount": "170～180g",
+    "amount": "170〜180g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -28120,7 +28120,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1本(120g)",
+    "amount": "1本（120g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -28156,7 +28156,7 @@
    },
    {
     "name": "木綿豆腐",
-    "amount": "1/2丁(175g)",
+    "amount": "1/2丁（175g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein_s",
@@ -28437,7 +28437,7 @@
    },
    {
     "name": "薄力粉",
-    "amount": "大さじ4半",
+    "amount": "大さじ4と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -28482,7 +28482,7 @@
    },
    {
     "name": "カレー粉",
-    "amount": "大さじ1半",
+    "amount": "大さじ1と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "harb",
@@ -28491,7 +28491,7 @@
    },
    {
     "name": "ターメリック",
-    "amount": "小さじ半分",
+    "amount": "小さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -28509,7 +28509,7 @@
    },
    {
     "name": "ご飯",
-    "amount": "200g×3~4人前",
+    "amount": "200g×3〜4人前",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -28573,7 +28573,7 @@
    },
    {
     "name": "中華味",
-    "amount": "小さじ2半",
+    "amount": "小さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -28591,7 +28591,7 @@
    },
    {
     "name": "醤油",
-    "amount": "大さじ半分",
+    "amount": "大さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -28600,7 +28600,7 @@
    },
    {
     "name": "片栗粉",
-    "amount": "大さじ半分",
+    "amount": "大さじ1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -28673,7 +28673,7 @@
    },
    {
     "name": "水",
-    "amount": "大さじ1/2 + 適量",
+    "amount": "大さじ1/2+適量",
     "option": false,
     "type1": "",
     "type2": "",
@@ -29019,7 +29019,7 @@
   "ingredients": [
    {
     "name": "じゃがいも",
-    "amount": "正味250～280g",
+    "amount": "正味250〜280g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -29219,7 +29219,7 @@
    },
    {
     "name": "オリーブオイル",
-    "amount": "大さじ1＋適量",
+    "amount": "大さじ1+適量",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -29301,7 +29301,7 @@
    },
    {
     "name": "切り餅",
-    "amount": "3~4個",
+    "amount": "3〜4個",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -29528,7 +29528,7 @@
    },
    {
     "name": "豚バラ",
-    "amount": "80~100g",
+    "amount": "80〜100g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -29637,7 +29637,7 @@
    },
    {
     "name": "牛乳",
-    "amount": "100㏄",
+    "amount": "100cc",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -29664,7 +29664,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみほど",
+    "amount": "1つまみほど",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -30110,7 +30110,7 @@
    },
    {
     "name": "ピザチーズ",
-    "amount": "35～40g",
+    "amount": "35〜40g",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -30338,7 +30338,7 @@
   "ingredients": [
    {
     "name": "大根",
-    "amount": "1/2本 500g",
+    "amount": "1/2本（500g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -30356,7 +30356,7 @@
    },
    {
     "name": "白だし",
-    "amount": "大さじ3半",
+    "amount": "大さじ3と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -30910,7 +30910,7 @@
    },
    {
     "name": "サラダ油",
-    "amount": "鍋底から1㎝ほど",
+    "amount": "鍋底から1cmほど",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -31128,7 +31128,7 @@
    },
    {
     "name": "絹豆腐",
-    "amount": "1パック(150g)",
+    "amount": "1パック（150g）",
     "option": false,
     "type1": "ingredient",
     "type2": "protein_s",
@@ -31592,7 +31592,7 @@
    },
    {
     "name": "ピザチーズ",
-    "amount": "お好みの量",
+    "amount": "お好みで",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -31682,7 +31682,7 @@
    },
    {
     "name": "豚バラ",
-    "amount": "200～250g",
+    "amount": "200〜250g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -31900,7 +31900,7 @@
    },
    {
     "name": "塩",
-    "amount": "1つまみ（基本）/ 3つまみ（ネギ塩）",
+    "amount": "1つまみ（基本）/3つまみ（ネギ塩）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -31936,7 +31936,7 @@
    },
    {
     "name": "黒胡椒",
-    "amount": "5振り（基本）/ 適量（ネギ塩）",
+    "amount": "5振り（基本）/適量（ネギ塩）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -32017,7 +32017,7 @@
    },
    {
     "name": "ごま油",
-    "amount": "2まわし",
+    "amount": "2回し",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -32054,7 +32054,7 @@
    },
    {
     "name": "長ネギ",
-    "amount": "1/3本（30-40g）",
+    "amount": "1/3本（30〜40g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -32190,7 +32190,7 @@
    },
    {
     "name": "水",
-    "amount": "280ml",
+    "amount": "280cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -32408,7 +32408,7 @@
   "ingredients": [
    {
     "name": "じゃがいも",
-    "amount": "230～240g（皮を剝いた状態）",
+    "amount": "230〜240g（皮を剝いた状態）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -32744,7 +32744,7 @@
    },
    {
     "name": "塩",
-    "amount": "小さじ1/3 + 1つまみ",
+    "amount": "小さじ1/3と1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -33034,7 +33034,7 @@
    },
    {
     "name": "レモン汁",
-    "amount": "大さじ1半＋小さじ2",
+    "amount": "大さじ1と1/2と小さじ2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -33197,7 +33197,7 @@
    },
    {
     "name": "塩",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -33234,7 +33234,7 @@
    },
    {
     "name": "ベーコン",
-    "amount": "35～40g",
+    "amount": "35〜40g",
     "option": false,
     "type1": "ingredient",
     "type2": "protein",
@@ -33243,7 +33243,7 @@
    },
    {
     "name": "玉ねぎ",
-    "amount": "1/4個（60gほど）",
+    "amount": "1/4個（約60g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -33370,7 +33370,7 @@
    },
    {
     "name": "トマト",
-    "amount": "1個(160～200g)",
+    "amount": "1個（160〜200g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -33379,7 +33379,7 @@
    },
    {
     "name": "玉ねぎ",
-    "amount": "1/4個(60g)",
+    "amount": "1/4個（60g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -33388,7 +33388,7 @@
    },
    {
     "name": "にんにく",
-    "amount": "1～2片",
+    "amount": "1〜2片",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -33469,7 +33469,7 @@
    },
    {
     "name": "塩",
-    "amount": "適量(パスタ茹で用、水に対して1%濃度)",
+    "amount": "適量（パスタ茹で用、水に対して1%濃度）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -33478,7 +33478,7 @@
    },
    {
     "name": "水",
-    "amount": "適量(パスタ茹で用)",
+    "amount": "適量（パスタ茹で用）",
     "option": false,
     "type1": "",
     "type2": "",
@@ -33515,7 +33515,7 @@
   "ingredients": [
    {
     "name": "切り餅",
-    "amount": "2～4個",
+    "amount": "2〜4個",
     "option": false,
     "type1": "ingredient",
     "type2": "carb",
@@ -33533,7 +33533,7 @@
    },
    {
     "name": "水",
-    "amount": "350㏄",
+    "amount": "350cc",
     "option": false,
     "type1": "",
     "type2": "",
@@ -33542,7 +33542,7 @@
    },
    {
     "name": "ほんだし",
-    "amount": "小さじ1と1／3",
+    "amount": "小さじ1と1/3",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -33606,7 +33606,7 @@
    },
    {
     "name": "トマトジュース",
-    "amount": "200ml",
+    "amount": "200cc",
     "option": false,
     "type1": "ingredient",
     "type2": "",
@@ -33869,7 +33869,7 @@
   "ingredients": [
    {
     "name": "玉ねぎ",
-    "amount": "1個（300gほど）",
+    "amount": "1個（約300g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -34105,7 +34105,7 @@
    },
    {
     "name": "しめじ",
-    "amount": "40～50g",
+    "amount": "40〜50g",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -34168,7 +34168,7 @@
    },
    {
     "name": "醤油",
-    "amount": "小さじ2と1／2",
+    "amount": "小さじ2と1/2",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -34240,7 +34240,7 @@
    },
    {
     "name": "水",
-    "amount": "1％塩分濃度で必要量",
+    "amount": "1%塩分濃度で必要量",
     "option": false,
     "type1": "",
     "type2": "",
@@ -34486,7 +34486,7 @@
   "ingredients": [
    {
     "name": "レタス",
-    "amount": "半玉（約150g）",
+    "amount": "1/2玉（約150g）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -34568,7 +34568,7 @@
    },
    {
     "name": "にんにく",
-    "amount": "6～7g",
+    "amount": "6〜7g",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -34985,7 +34985,7 @@
    },
    {
     "name": "キャベツ",
-    "amount": "160g(1/8玉)",
+    "amount": "160g（1/8玉）",
     "option": false,
     "type1": "ingredient",
     "type2": "veggies",
@@ -35231,7 +35231,7 @@
    },
    {
     "name": "にんにく",
-    "amount": "半片",
+    "amount": "1/2片",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -35739,7 +35739,7 @@
    },
    {
     "name": "輪切り唐辛子",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -36066,7 +36066,7 @@
    },
    {
     "name": "砂糖",
-    "amount": "ひとつまみ",
+    "amount": "1つまみ",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -36184,7 +36184,7 @@
    },
    {
     "name": "オリーブオイル",
-    "amount": "大さじ4～5",
+    "amount": "大さじ4〜5",
     "option": false,
     "type1": "seasoning",
     "type2": "",
@@ -36193,7 +36193,7 @@
    },
    {
     "name": "にんにく",
-    "amount": "13g（10g+3片）",
+    "amount": "13g（10gと3片）",
     "option": false,
     "type1": "seasoning",
     "type2": "",
