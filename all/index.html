@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>レシピ検索ツール 全動画版</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍳</text></svg>">
-<link rel="stylesheet" href="../style.css?v=20261022-1341">
+<link rel="stylesheet" href="../style.css?v=20261022-1850">
 </head>
 <body>
 <header class="topbar">
@@ -40,6 +40,7 @@
     <div class="controls" id="controls"></div>
     <div class="selected" id="selected"></div>
     <div class="summary" id="summary"></div>
+    <nav class="courses" id="courses" aria-label="料理の区分（結果の上で左右にスワイプしても切り替わります）"></nav>
     <div class="cards" id="cards"></div>
   </section>
 </main>
@@ -59,6 +60,6 @@
   // 全動画版の設定（app.js の SITE を上書き）
   window.SITE = { data: '../data-all/', key: '-all', hideEmpty: true, shorts: true, pageSize: 60 };
 </script>
-<script src="../app.js?v=20261022-1341"></script>
+<script src="../app.js?v=20261022-1850"></script>
 </body>
 </html>
